@@ -1,0 +1,3265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>THALASSERY — Owner Dashboard</title>
+
+<style>
+
+:root{
+  --green:#176b3a;
+  --dark-green:#0b4324;
+  --light-green:#e9f2eb;
+  --cream:#f8f6ef;
+  --gold:#c9973e;
+  --white:#ffffff;
+  --text:#1e2a22;
+  --muted:#718078;
+  --border:#e3e9e4;
+  --danger:#c0392b;
+  --shadow:0 12px 35px rgba(11,67,36,.08);
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:Inter,Arial,sans-serif;
+  background:var(--cream);
+  color:var(--text);
+}
+
+/* =========================
+   LOGIN
+========================= */
+
+.login-page{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:
+    radial-gradient(circle at top right,#e9f2eb,transparent 40%),
+    var(--cream);
+}
+
+.login-card{
+  width:100%;
+  max-width:430px;
+  background:white;
+  padding:42px;
+  border-radius:25px;
+  box-shadow:var(--shadow);
+  border:1px solid var(--border);
+}
+
+.logo{
+  text-align:center;
+  margin-bottom:30px;
+}
+
+.logo h1{
+  color:var(--green);
+  font-size:32px;
+  letter-spacing:2px;
+}
+
+.logo span{
+  display:block;
+  color:var(--gold);
+  font-size:12px;
+  letter-spacing:5px;
+  margin-top:4px;
+}
+
+.login-title{
+  font-size:22px;
+  margin-bottom:8px;
+}
+
+.login-sub{
+  color:var(--muted);
+  margin-bottom:25px;
+}
+
+input,select,textarea{
+  width:100%;
+  padding:13px 15px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  outline:none;
+  background:white;
+  font-size:14px;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:var(--green);
+  box-shadow:0 0 0 3px rgba(23,107,58,.08);
+}
+
+.form-group{
+  margin-bottom:17px;
+}
+
+.form-group label{
+  display:block;
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:7px;
+}
+
+.btn{
+  border:none;
+  border-radius:12px;
+  padding:12px 18px;
+  cursor:pointer;
+  font-weight:700;
+  transition:.2s;
+}
+
+.btn:hover{
+  transform:translateY(-1px);
+}
+
+.btn-primary{
+  background:var(--green);
+  color:white;
+}
+
+.btn-primary:hover{
+  background:var(--dark-green);
+}
+
+.btn-light{
+  background:var(--light-green);
+  color:var(--green);
+}
+
+.btn-danger{
+  background:#fdecea;
+  color:var(--danger);
+}
+
+.btn-gold{
+  background:var(--gold);
+  color:white;
+}
+
+.full{
+  width:100%;
+}
+
+.error{
+  color:var(--danger);
+  font-size:13px;
+  margin-top:12px;
+}
+
+/* =========================
+   APP
+========================= */
+
+.app{
+  display:none;
+  min-height:100vh;
+}
+
+/* TOP NAV */
+
+.topbar{
+  height:74px;
+  background:white;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 30px;
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+
+.brand{
+  font-weight:900;
+  font-size:22px;
+  color:var(--green);
+  letter-spacing:1px;
+}
+
+.brand span{
+  color:var(--gold);
+  font-size:10px;
+  letter-spacing:3px;
+  display:block;
+}
+
+.owner-area{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.owner-badge{
+  background:var(--light-green);
+  color:var(--green);
+  padding:8px 13px;
+  border-radius:30px;
+  font-size:13px;
+  font-weight:700;
+}
+
+.mobile-menu{
+  display:none;
+}
+
+/* LAYOUT */
+
+.layout{
+  display:flex;
+}
+
+.sidebar{
+  width:240px;
+  min-height:calc(100vh - 74px);
+  background:white;
+  border-right:1px solid var(--border);
+  padding:22px 15px;
+  position:sticky;
+  top:74px;
+  height:calc(100vh - 74px);
+}
+
+.side-title{
+  font-size:11px;
+  color:var(--muted);
+  letter-spacing:2px;
+  margin:10px 12px;
+}
+
+.side-btn{
+  width:100%;
+  border:none;
+  background:transparent;
+  text-align:left;
+  padding:13px 14px;
+  border-radius:12px;
+  margin-bottom:5px;
+  cursor:pointer;
+  color:#536158;
+  font-weight:700;
+}
+
+.side-btn:hover{
+  background:var(--light-green);
+  color:var(--green);
+}
+
+.side-btn.active{
+  background:var(--green);
+  color:white;
+}
+
+.main{
+  flex:1;
+  padding:30px;
+  max-width:1500px;
+}
+
+/* =========================
+   SECTION
+========================= */
+
+.section{
+  display:none;
+}
+
+.section.active{
+  display:block;
+}
+
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:22px;
+  gap:15px;
+}
+
+.section-head h2{
+  font-size:27px;
+}
+
+.section-head p{
+  color:var(--muted);
+  font-size:14px;
+  margin-top:4px;
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+  margin-bottom:25px;
+}
+
+.stat{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:22px;
+  box-shadow:var(--shadow);
+}
+
+.stat-label{
+  color:var(--muted);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.5px;
+}
+
+.stat-value{
+  font-size:30px;
+  font-weight:900;
+  color:var(--green);
+  margin-top:9px;
+}
+
+.card{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:18px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+
+.card-head{
+  padding:18px 20px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.card-head h3{
+  font-size:17px;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.table-wrap{
+  overflow-x:auto;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+th{
+  text-align:left;
+  font-size:11px;
+  color:var(--muted);
+  padding:14px 18px;
+  border-bottom:1px solid var(--border);
+  white-space:nowrap;
+}
+
+td{
+  padding:15px 18px;
+  border-bottom:1px solid #edf1ee;
+  font-size:13px;
+  vertical-align:middle;
+}
+
+tr:last-child td{
+  border-bottom:none;
+}
+
+.customer-name{
+  font-weight:800;
+}
+
+.customer-phone{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:3px;
+}
+
+.money{
+  font-weight:800;
+  color:var(--green);
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  padding:6px 10px;
+  border-radius:30px;
+  font-size:11px;
+  font-weight:800;
+  background:var(--light-green);
+  color:var(--green);
+}
+
+.badge-danger{
+  background:#fdecea;
+  color:var(--danger);
+}
+
+.badge-gold{
+  background:#f8efd9;
+  color:#936a18;
+}
+
+/* =========================
+   MENU
+========================= */
+
+.menu-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.menu-card{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+
+.menu-img{
+  height:180px;
+  background:var(--light-green);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  font-size:55px;
+}
+
+.menu-img img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.menu-body{
+  padding:18px;
+}
+
+.menu-body h3{
+  font-size:18px;
+  margin-bottom:6px;
+}
+
+.menu-description{
+  color:var(--muted);
+  font-size:12px;
+  min-height:35px;
+}
+
+.menu-bottom{
+  margin-top:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.menu-price{
+  color:var(--green);
+  font-size:20px;
+  font-weight:900;
+}
+
+.menu-actions{
+  display:flex;
+  gap:7px;
+  margin-top:15px;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  z-index:100;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:100%;
+  max-width:620px;
+  max-height:90vh;
+  overflow-y:auto;
+  background:white;
+  border-radius:22px;
+  box-shadow:0 30px 80px rgba(0,0,0,.2);
+}
+
+.modal-head{
+  padding:20px 23px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+  background:white;
+  z-index:2;
+}
+
+.modal-head h3{
+  color:var(--green);
+}
+
+.close{
+  border:none;
+  background:var(--light-green);
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  cursor:pointer;
+  color:var(--green);
+  font-size:18px;
+}
+
+.modal-body{
+  padding:23px;
+}
+
+/* =========================
+   DETAIL
+========================= */
+
+.detail-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:13px;
+}
+
+.detail-box{
+  background:#f7faf7;
+  border:1px solid var(--border);
+  border-radius:13px;
+  padding:14px;
+}
+
+.detail-label{
+  color:var(--muted);
+  font-size:11px;
+  font-weight:700;
+  text-transform:uppercase;
+  margin-bottom:5px;
+}
+
+.detail-value{
+  font-weight:800;
+  font-size:15px;
+}
+
+.detail-full{
+  grid-column:1/-1;
+}
+
+.order-item{
+  display:flex;
+  justify-content:space-between;
+  padding:13px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.order-item:last-child{
+  border-bottom:none;
+}
+
+.history-item{
+  padding:13px;
+  background:#f7faf7;
+  border-radius:12px;
+  margin-bottom:9px;
+}
+
+.history-item strong{
+  color:var(--green);
+}
+
+.empty{
+  text-align:center;
+  padding:40px 20px;
+  color:var(--muted);
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+  position:fixed;
+  right:25px;
+  bottom:25px;
+  background:var(--dark-green);
+  color:white;
+  padding:14px 18px;
+  border-radius:12px;
+  display:none;
+  z-index:200;
+  box-shadow:var(--shadow);
+}
+
+.toast.show{
+  display:block;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:1000px){
+
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .menu-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:750px){
+
+  .topbar{
+    padding:0 16px;
+  }
+
+  .mobile-menu{
+    display:block;
+    border:none;
+    background:var(--light-green);
+    color:var(--green);
+    padding:9px 12px;
+    border-radius:10px;
+    font-weight:900;
+  }
+
+  .owner-badge{
+    display:none;
+  }
+
+  .sidebar{
+    position:fixed;
+    left:-260px;
+    top:74px;
+    z-index:90;
+    transition:.25s;
+    box-shadow:10px 0 30px rgba(0,0,0,.1);
+  }
+
+  .sidebar.open{
+    left:0;
+  }
+
+  .main{
+    padding:20px 15px;
+    width:100%;
+  }
+
+  .stats{
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+
+  .stat{
+    padding:16px;
+  }
+
+  .stat-value{
+    font-size:23px;
+  }
+
+  .menu-grid{
+    grid-template-columns:1fr;
+  }
+
+  .section-head{
+    align-items:flex-start;
+  }
+
+  .section-head h2{
+    font-size:23px;
+  }
+
+  .detail-grid{
+    grid-template-columns:1fr;
+  }
+
+  .detail-full{
+    grid-column:auto;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     LOGIN
+========================= -->
+
+<div id="loginPage" class="login-page">
+
+  <div class="login-card">
+
+    <div class="logo">
+      <h1>THALASSERY</h1>
+      <span>FOOD • OWNER PANEL</span>
+    </div>
+
+    <div class="login-title">Owner Login</div>
+    <div class="login-sub">
+      Manage your food business from one place.
+    </div>
+
+    <div class="form-group">
+      <label>USERNAME</label>
+      <input id="username" type="text" placeholder="Enter username">
+    </div>
+
+    <div class="form-group">
+      <label>PASSWORD</label>
+      <input id="password" type="password" placeholder="Enter password">
+    </div>
+
+    <button class="btn btn-primary full" onclick="login()">
+      Login
+    </button>
+
+    <div id="loginError" class="error"></div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     APP
+========================= -->
+
+<div id="app" class="app">
+
+  <header class="topbar">
+
+    <div style="display:flex;align-items:center;gap:12px;">
+
+      <button class="mobile-menu" onclick="toggleSidebar()">
+        ☰
+      </button>
+
+      <div class="brand">
+        THALASSERY
+        <span>FOOD OWNER PANEL</span>
+      </div>
+
+    </div>
+
+    <div class="owner-area">
+
+      <div class="owner-badge">
+        👤 Owner
+      </div>
+
+      <button class="btn btn-light" onclick="logout()">
+        Logout
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+
+    <aside id="sidebar" class="sidebar">
+
+      <div class="side-title">
+        MANAGEMENT
+      </div>
+
+      <button class="side-btn active"
+              data-section="overview"
+              onclick="showSection('overview')">
+        📊 Overview
+      </button>
+
+      <button class="side-btn"
+              data-section="orders"
+              onclick="showSection('orders')">
+        🧾 Orders
+      </button>
+
+      <button class="side-btn"
+              data-section="menu"
+              onclick="showSection('menu')">
+        🍗 Menu
+      </button>
+
+      <button class="side-btn"
+              data-section="customers"
+              onclick="showSection('customers')">
+        👥 Customers
+      </button>
+
+      <button class="side-btn"
+              data-section="credit"
+              onclick="showSection('credit')">
+        💳 Credit
+      </button>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+
+      <!-- =========================
+           OVERVIEW
+      ========================= -->
+
+      <section id="overview" class="section active">
+
+        <div class="section-head">
+
+          <div>
+            <h2>Dashboard</h2>
+            <p>Welcome back, Owner.</p>
+          </div>
+
+          <button class="btn btn-light"
+                  onclick="loadDashboard()">
+            ↻ Refresh
+          </button>
+
+        </div>
+
+
+        <div class="stats">
+
+          <div class="stat">
+            <div class="stat-label">TODAY'S ORDERS</div>
+            <div id="statOrders" class="stat-value">0</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-label">TODAY'S SALES</div>
+            <div id="statSales" class="stat-value">0 AED</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-label">CUSTOMERS</div>
+            <div id="statCustomers" class="stat-value">0</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-label">OUTSTANDING CREDIT</div>
+            <div id="statCredit" class="stat-value">0 AED</div>
+          </div>
+
+        </div>
+
+
+        <div class="card">
+
+          <div class="card-head">
+
+            <h3>Recent Orders</h3>
+
+            <button class="btn btn-light"
+                    onclick="showSection('orders')">
+              View All
+            </button>
+
+          </div>
+
+          <div class="table-wrap">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>ORDER</th>
+                  <th>CUSTOMER</th>
+                  <th>TOTAL</th>
+                  <th>PAYMENT</th>
+                  <th>STATUS</th>
+                  <th>ACTION</th>
+                </tr>
+              </thead>
+
+              <tbody id="recentOrders"></tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           ORDERS
+      ========================= -->
+
+      <section id="orders" class="section">
+
+        <div class="section-head">
+
+          <div>
+            <h2>Orders</h2>
+            <p>Manage incoming customer orders.</p>
+          </div>
+
+          <button class="btn btn-light"
+                  onclick="loadOrders()">
+            ↻ Refresh
+          </button>
+
+        </div>
+
+
+        <div class="card">
+
+          <div class="table-wrap">
+
+            <table>
+
+              <thead>
+
+                <tr>
+                  <th>ORDER</th>
+                  <th>CUSTOMER</th>
+                  <th>ITEMS</th>
+                  <th>TOTAL</th>
+                  <th>PAYMENT</th>
+                  <th>STATUS</th>
+                  <th>ACTION</th>
+                </tr>
+
+              </thead>
+
+              <tbody id="ordersTable"></tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           MENU
+      ========================= -->
+
+      <section id="menu" class="section">
+
+        <div class="section-head">
+
+          <div>
+            <h2>Menu</h2>
+            <p>Add, edit and manage your food items.</p>
+          </div>
+
+          <button class="btn btn-primary"
+                  onclick="openMenuModal()">
+            + Add Food
+          </button>
+
+        </div>
+
+
+        <div id="menuGrid" class="menu-grid"></div>
+
+      </section>
+
+
+      <!-- =========================
+           CUSTOMERS
+      ========================= -->
+
+      <section id="customers" class="section">
+
+        <div class="section-head">
+
+          <div>
+            <h2>Customers</h2>
+            <p>Customer details, orders and credit information.</p>
+          </div>
+
+          <button class="btn btn-light"
+                  onclick="loadCustomers()">
+            ↻ Refresh
+          </button>
+
+        </div>
+
+
+        <div class="card">
+
+          <div class="table-wrap">
+
+            <table>
+
+              <thead>
+
+                <tr>
+                  <th>CUSTOMER</th>
+                  <th>PHONE</th>
+                  <th>LIMIT</th>
+                  <th>USED</th>
+                  <th>AVAILABLE</th>
+                  <th>ACTION</th>
+                </tr>
+
+              </thead>
+
+              <tbody id="customersTable"></tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           CREDIT
+      ========================= -->
+
+      <section id="credit" class="section">
+
+        <div class="section-head">
+
+          <div>
+            <h2>Credit Management</h2>
+            <p>Manage customer limits and payments.</p>
+          </div>
+
+          <button class="btn btn-light"
+                  onclick="loadCustomers()">
+            ↻ Refresh
+          </button>
+
+        </div>
+
+
+        <div class="card">
+
+          <div class="table-wrap">
+
+            <table>
+
+              <thead>
+
+                <tr>
+                  <th>CUSTOMER</th>
+                  <th>PHONE</th>
+                  <th>CREDIT LIMIT</th>
+                  <th>USED</th>
+                  <th>AVAILABLE</th>
+                  <th>ACTION</th>
+                </tr>
+
+              </thead>
+
+              <tbody id="creditTable"></tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     MENU MODAL
+========================= -->
+
+<div id="menuModal" class="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <h3 id="menuModalTitle">
+        Add Food
+      </h3>
+
+      <button class="close"
+              onclick="closeMenuModal()">
+        ×
+      </button>
+
+    </div>
+
+
+    <div class="modal-body">
+
+      <input type="hidden" id="menuId">
+
+      <div class="form-group">
+        <label>FOOD NAME</label>
+        <input id="menuName"
+               placeholder="Chicken Biriyani">
+      </div>
+
+      <div class="form-group">
+        <label>DESCRIPTION</label>
+        <textarea id="menuDescription"
+                  rows="3"
+                  placeholder="Food description"></textarea>
+      </div>
+
+      <div class="detail-grid">
+
+        <div class="form-group">
+          <label>CATEGORY</label>
+
+          <select id="menuCategory">
+
+            <option value="Biriyani">Biriyani</option>
+            <option value="Chicken">Chicken</option>
+            <option value="Meals">Meals</option>
+            <option value="Rolls">Rolls</option>
+            <option value="Drinks">Drinks</option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>PRICE (AED)</label>
+
+          <input id="menuPrice"
+                 type="number"
+                 step="0.01"
+                 placeholder="12">
+
+        </div>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>IMAGE / EMOJI</label>
+
+        <input id="menuImage"
+               placeholder="🍗 or image URL">
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>AVAILABILITY</label>
+
+        <select id="menuAvailable">
+
+          <option value="1">Available</option>
+          <option value="0">Sold Out</option>
+
+        </select>
+
+      </div>
+
+
+      <button class="btn btn-primary full"
+              onclick="saveMenu()">
+
+        Save Food
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     CUSTOMER DETAILS MODAL
+========================= -->
+
+<div id="customerModal" class="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <h3>Customer Details</h3>
+
+      <button class="close"
+              onclick="closeCustomerModal()">
+        ×
+      </button>
+
+    </div>
+
+    <div id="customerDetails"
+         class="modal-body">
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     ORDER DETAILS MODAL
+========================= -->
+
+<div id="orderModal" class="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <h3>Order Details</h3>
+
+      <button class="close"
+              onclick="closeOrderModal()">
+        ×
+      </button>
+
+    </div>
+
+    <div id="orderDetails"
+         class="modal-body">
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     CREDIT MODAL
+========================= -->
+
+<div id="creditModal" class="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <h3>Manage Credit</h3>
+
+      <button class="close"
+              onclick="closeCreditModal()">
+        ×
+      </button>
+
+    </div>
+
+
+    <div class="modal-body">
+
+      <input type="hidden"
+             id="creditCustomerId">
+
+
+      <div id="creditCustomerInfo"
+           class="detail-box"
+           style="margin-bottom:18px;">
+      </div>
+
+
+      <div class="form-group">
+
+        <label>NEW CREDIT LIMIT</label>
+
+        <input id="creditLimit"
+               type="number"
+               step="0.01">
+
+      </div>
+
+
+      <button class="btn btn-primary full"
+              onclick="saveCreditLimit()">
+
+        Update Credit Limit
+
+      </button>
+
+
+      <hr style="margin:25px 0;border:none;border-top:1px solid var(--border);">
+
+
+      <h3 style="margin-bottom:15px;color:var(--green);">
+        Record Payment
+      </h3>
+
+
+      <div class="form-group">
+
+        <label>PAYMENT AMOUNT (AED)</label>
+
+        <input id="paymentAmount"
+               type="number"
+               step="0.01"
+               placeholder="50">
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>NOTE</label>
+
+        <textarea id="paymentNote"
+                  rows="3"
+                  placeholder="Payment received"></textarea>
+
+      </div>
+
+
+      <button class="btn btn-gold full"
+              onclick="recordPayment()">
+
+        Record Payment
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<div id="toast" class="toast"></div>
+
+
+<script>
+
+/* =========================
+   GLOBAL
+========================= */
+
+const API = "/api";
+
+let currentOrders = [];
+let currentCustomers = [];
+let currentMenu = [];
+
+
+/* =========================
+   API HELPER
+========================= */
+
+async function api(url, options = {}){
+
+  const response = await fetch(url, {
+    credentials:"include",
+    headers:{
+      "Content-Type":"application/json",
+      ...(options.headers || {})
+    },
+    ...options
+  });
+
+  let data = {};
+
+  try{
+    data = await response.json();
+  }catch(e){}
+
+  if(!response.ok){
+
+    throw new Error(
+      data.error ||
+      data.message ||
+      "Request failed"
+    );
+
+  }
+
+  return data;
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+async function login(){
+
+  const username =
+    document.getElementById("username").value.trim();
+
+  const password =
+    document.getElementById("password").value;
+
+  const error =
+    document.getElementById("loginError");
+
+  error.textContent = "";
+
+  if(!username || !password){
+
+    error.textContent =
+      "Enter username and password.";
+
+    return;
+  }
+
+  try{
+
+    await api("/api/admin/login",{
+
+      method:"POST",
+
+      body:JSON.stringify({
+        username,
+        password
+      })
+
+    });
+
+    document.getElementById("loginPage").style.display="none";
+
+    document.getElementById("app").style.display="block";
+
+    loadDashboard();
+
+  }catch(err){
+
+    error.textContent =
+      err.message || "Login failed.";
+
+  }
+
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+async function logout(){
+
+  try{
+
+    await api("/api/admin/logout",{
+      method:"POST"
+    });
+
+  }catch(e){}
+
+  location.reload();
+
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+function toggleSidebar(){
+
+  document
+    .getElementById("sidebar")
+    .classList.toggle("open");
+
+}
+
+
+function showSection(name){
+
+  document
+    .querySelectorAll(".section")
+    .forEach(section=>{
+      section.classList.remove("active");
+    });
+
+  document
+    .querySelectorAll(".side-btn")
+    .forEach(btn=>{
+      btn.classList.remove("active");
+    });
+
+  const section =
+    document.getElementById(name);
+
+  if(section){
+    section.classList.add("active");
+  }
+
+  const button =
+    document.querySelector(
+      `.side-btn[data-section="${name}"]`
+    );
+
+  if(button){
+    button.classList.add("active");
+  }
+
+  document
+    .getElementById("sidebar")
+    .classList.remove("open");
+
+  if(name==="overview"){
+    loadDashboard();
+  }
+
+  if(name==="orders"){
+    loadOrders();
+  }
+
+  if(name==="menu"){
+    loadMenu();
+  }
+
+  if(name==="customers"){
+    loadCustomers();
+  }
+
+  if(name==="credit"){
+    loadCustomers();
+  }
+
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+async function loadDashboard(){
+
+  try{
+
+    const data =
+      await api("/api/admin/dashboard");
+
+    document.getElementById("statOrders").textContent =
+      data.today_orders ?? data.orders_today ?? 0;
+
+    document.getElementById("statSales").textContent =
+      formatAED(
+        data.today_sales ??
+        data.sales_today ??
+        0
+      );
+
+    document.getElementById("statCustomers").textContent =
+      data.customers ?? data.total_customers ?? 0;
+
+    document.getElementById("statCredit").textContent =
+      formatAED(
+        data.outstanding_credit ??
+        data.credit ??
+        0
+      );
+
+    await loadOrders(true);
+
+  }catch(err){
+
+    showToast(err.message);
+
+  }
+
+}
+
+
+/* =========================
+   ORDERS
+========================= */
+
+async function loadOrders(silent=false){
+
+  try{
+
+    const data =
+      await api("/api/admin/orders");
+
+    currentOrders =
+      Array.isArray(data)
+        ? data
+        : (data.orders || []);
+
+    renderOrders();
+
+    renderRecentOrders();
+
+  }catch(err){
+
+    if(!silent){
+      showToast(err.message);
+    }
+
+  }
+
+}
+
+
+function renderOrders(){
+
+  const tbody =
+    document.getElementById("ordersTable");
+
+  if(!currentOrders.length){
+
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="7">
+          <div class="empty">
+            No orders found.
+          </div>
+        </td>
+      </tr>
+    `;
+
+    return;
+  }
+
+  tbody.innerHTML =
+    currentOrders.map(order=>{
+
+      const items =
+        getOrderItemsText(order);
+
+      return `
+        <tr>
+
+          <td>
+            <strong>#${order.id ?? "-"}</strong>
+            <div class="customer-phone">
+              ${formatDate(order.created_at)}
+            </div>
+          </td>
+
+          <td>
+            <div class="customer-name">
+              ${escapeHtml(
+                order.customer_name ||
+                order.name ||
+                "Customer"
+              )}
+            </div>
+
+            <div class="customer-phone">
+              ${escapeHtml(
+                order.phone ||
+                order.customer_phone ||
+                ""
+              )}
+            </div>
+          </td>
+
+          <td>
+            ${escapeHtml(items)}
+          </td>
+
+          <td class="money">
+            ${formatAED(order.total)}
+          </td>
+
+          <td>
+            <span class="badge">
+              ${escapeHtml(
+                String(
+                  order.payment_method ||
+                  order.payment ||
+                  "Pay"
+                ).toUpperCase()
+              )}
+            </span>
+          </td>
+
+          <td>
+            ${statusSelect(order)}
+          </td>
+
+          <td>
+
+            <button class="btn btn-light"
+                    onclick="viewOrder(${order.id})">
+              View
+            </button>
+
+          </td>
+
+        </tr>
+      `;
+
+    }).join("");
+
+}
+
+
+function renderRecentOrders(){
+
+  const tbody =
+    document.getElementById("recentOrders");
+
+  const orders =
+    currentOrders.slice(0,8);
+
+  if(!orders.length){
+
+    tbody.innerHTML=`
+      <tr>
+        <td colspan="6">
+          <div class="empty">
+            No recent orders.
+          </div>
+        </td>
+      </tr>
+    `;
+
+    return;
+  }
+
+  tbody.innerHTML =
+    orders.map(order=>{
+
+      return `
+        <tr>
+
+          <td>
+            <strong>#${order.id}</strong>
+          </td>
+
+          <td>
+            ${escapeHtml(
+              order.customer_name ||
+              order.name ||
+              "Customer"
+            )}
+          </td>
+
+          <td class="money">
+            ${formatAED(order.total)}
+          </td>
+
+          <td>
+            <span class="badge">
+              ${escapeHtml(
+                String(
+                  order.payment_method ||
+                  order.payment ||
+                  "Pay"
+                ).toUpperCase()
+              )}
+            </span>
+          </td>
+
+          <td>
+            <span class="badge">
+              ${escapeHtml(order.status || "Pending")}
+            </span>
+          </td>
+
+          <td>
+            <button class="btn btn-light"
+                    onclick="viewOrder(${order.id})">
+              View
+            </button>
+          </td>
+
+        </tr>
+      `;
+
+    }).join("");
+
+}
+
+
+function statusSelect(order){
+
+  const statuses = [
+    "Pending",
+    "Confirmed",
+    "Preparing",
+    "Ready",
+    "Delivered",
+    "Cancelled"
+  ];
+
+  return `
+    <select
+      onchange="changeOrderStatus(${order.id},this.value)"
+      style="min-width:125px;">
+
+      ${
+        statuses.map(status=>`
+
+          <option
+            value="${status}"
+            ${
+              String(order.status).toLowerCase() ===
+              status.toLowerCase()
+              ? "selected"
+              : ""
+            }>
+            ${status}
+          </option>
+
+        `).join("")
+      }
+
+    </select>
+  `;
+
+}
+
+
+async function changeOrderStatus(id,status){
+
+  try{
+
+    await api(
+      `/api/admin/orders/${id}/status`,
+      {
+        method:"PUT",
+        body:JSON.stringify({status})
+      }
+    );
+
+    showToast("Order status updated.");
+
+    loadOrders();
+
+  }catch(err){
+
+    showToast(err.message);
+
+  }
+
+}
+
+
+/* =========================
+   ORDER DETAILS
+========================= */
+
+function viewOrder(id){
+
+  const order =
+    currentOrders.find(
+      item => Number(item.id) === Number(id)
+    );
+
+  if(!order){
+
+    showToast("Order not found.");
+
+    return;
+  }
+
+  const items =
+    normalizeItems(order);
+
+  document.getElementById("orderDetails").innerHTML = `
+
+    <div class="detail-grid">
+
+      <div class="detail-box">
+        <div class="detail-label">Order ID</div>
+        <div class="detail-value">
+          #${order.id}
+        </div>
+      </div>
+
+      <div class="detail-box">
+        <div class="detail-label">Date</div>
+        <div class="detail-value">
+          ${formatDate(order.created_at)}
+        </div>
+      </div>
+
+      <div class="detail-box">
+        <div class="detail-label">Customer</div>
+        <div class="detail-value">
+          ${escapeHtml(
+            order.customer_name ||
+            order.name ||
+            "Customer"
+          )}
+        </div>
+      </div>
+
+      <div class="detail-box">
+        <div class="detail-label">Phone</div>
+        <div class="detail-value">
+          ${escapeHtml(
+            order.phone ||
+            order.customer_phone ||
+            "-"
+          )}
+        </div>
+      </div>
+
+      <div class="detail-box">
+        <div class="detail-label">Payment</div>
+        <div class="detail-value">
+          ${escapeHtml(
+            String(
+              order.payment_method ||
+              order.payment ||
+              "-"
+            ).toUpperCase()
+          )}
+        </div>
+      </div>
+
+      <div class="detail-box">
+        <div class="detail-label">Status</div>
+        <div class="detail-value">
+          ${escapeHtml(order.status || "Pending")}
+        </div>
+      </div>
+
+      <div class="detail-box detail-full">
+
+        <div class="detail-label">
+          ORDER ITEMS
+        </div>
+
+        ${
+          items.length
+          ?
+          items.map(item=>`
+
+            <div class="order-item">
+
+              <div>
+
+                <strong>
+                  ${escapeHtml(
+                    item.name ||
+                    item.food_name ||
+                    "Food"
+                  )}
+                </strong>
+
+                <div class="customer-phone">
+                  Qty: ${item.qty ?? item.quantity ?? 1}
+                </div>
+
+              </div>
+
+              <strong>
+                ${formatAED(
+                  (
+                    Number(item.price || 0) *
+                    Number(
+                      item.qty ??
+                      item.quantity ??
+                      1
+                    )
+                  )
+                )}
+              </strong>
+
+            </div>
+
+          `).join("")
+          :
+          `<div class="empty">No item details available.</div>`
+        }
+
+      </div>
+
+
+      <div class="detail-box detail-full">
+
+        <div class="detail-label">
+          TOTAL
+        </div>
+
+        <div class="detail-value"
+             style="font-size:25px;color:var(--green);">
+
+          ${formatAED(order.total)}
+
+        </div>
+
+      </div>
+
+    </div>
+  `;
+
+  openModal("orderModal");
+
+}
+
+
+function normalizeItems(order){
+
+  if(Array.isArray(order.items)){
+    return order.items;
+  }
+
+  if(Array.isArray(order.order_items)){
+    return order.order_items;
+  }
+
+  return [];
+
+}
+
+
+function getOrderItemsText(order){
+
+  const items =
+    normalizeItems(order);
+
+  if(!items.length){
+
+    return (
+      order.items_summary ||
+      order.item_names ||
+      "-"
+    );
+
+  }
+
+  return items.map(item=>{
+
+    const qty =
+      item.qty ??
+      item.quantity ??
+      1;
+
+    return `${item.name || item.food_name} × ${qty}`;
+
+  }).join(", ");
+
+}
+
+
+function closeOrderModal(){
+
+  closeModal("orderModal");
+
+}
+
+
+/* =========================
+   MENU
+========================= */
+
+async function loadMenu(){
+
+  try{
+
+    const data =
+      await api("/api/menu");
+
+    currentMenu =
+      Array.isArray(data)
+        ? data
+        : (data.menu || data.items || []);
+
+    renderMenu();
+
+  }catch(err){
+
+    showToast(err.message);
+
+  }
+
+}
+
+
+function renderMenu(){
+
+  const grid =
+    document.getElementById("menuGrid");
+
+  if(!currentMenu.length){
+
+    grid.innerHTML = `
+      <div class="card"
+           style="grid-column:1/-1;">
+        <div class="empty">
+          No menu items.
+        </div>
+      </div>
+    `;
+
+    return;
+  }
+
+  grid.innerHTML =
+    currentMenu.map(item=>{
+
+      const image =
+        item.image ||
+        item.image_url ||
+        item.emoji ||
+        "🍛";
+
+      const isUrl =
+        /^https?:\/\//i.test(image);
+
+      return `
+
+        <div class="menu-card">
+
+          <div class="menu-img">
+
+            ${
+              isUrl
+              ?
+              `<img src="${escapeAttr(image)}"
+                    alt="${escapeAttr(item.name || "")}"
+                    onerror="this.style.display='none'">`
+              :
+              escapeHtml(image)
+            }
+
+          </div>
+
+
+          <div class="menu-body">
+
+            <h3>
+              ${escapeHtml(item.name || "Food")}
+            </h3>
+
+            <div class="menu-description">
+              ${escapeHtml(
+                item.description || ""
+              )}
+            </div>
+
+
+            <div class="menu-bottom">
+
+              <div class="menu-price">
+                ${formatAED(item.price)}
+              </div>
+
+              ${
+                Number(item.available)
+                ?
+                `<span class="badge">Available</span>`
+                :
+                `<span class="badge badge-danger">Sold Out</span>`
+              }
+
+            </div>
+
+
+            <div class="menu-actions">
+
+              <button class="btn btn-light"
+                      onclick="editMenu(${item.id})">
+                Edit
+              </button>
+
+              <button class="btn btn-danger"
+                      onclick="deleteMenu(${item.id})">
+                Delete
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+function openMenuModal(item=null){
+
+  document.getElementById("menuModalTitle").textContent =
+    item ? "Edit Food" : "Add Food";
+
+  document.getElementById("menuId").value =
+    item?.id || "";
+
+  document.getElementById("menuName").value =
+    item?.name || "";
+
+  document.getElementById("menuDescription").value =
+    item?.description || "";
+
+  document.getElementById("menuCategory").value =
+    item?.category || "Biriyani";
+
+  document.getElementById("menuPrice").value =
+    item?.price || "";
+
+  document.getElementById("menuImage").value =
+    item?.image ||
+    item?.image_url ||
+    item?.emoji ||
+    "";
+
+  document.getElementById("menuAvailable").value =
+    Number(item?.available ?? 1) ? "1" : "0";
+
+  openModal("menuModal");
+
+}
+
+
+function closeMenuModal(){
+
+  closeModal("menuModal");
+
+}
+
+
+function editMenu(id){
+
+  const item =
+    currentMenu.find(
+      item=>Number(item.id)===Number(id)
+    );
+
+  if(item){
+    openMenuModal(item);
+  }
+
+}
+
+
+async function saveMenu(){
+
+  const id =
+    document.getElementById("menuId").value;
+
+  const payload = {
+
+    name:
+      document.getElementById("menuName").value.trim(),
+
+    description:
+      document.getElementById("menuDescription").value.trim(),
+
+    category:
+      document.getElementById("menuCategory").value,
+
+    price:
+      Number(
+        document.getElementById("menuPrice").value
+      ),
+
+    image:
+      document.getElementById("menuImage").value.trim(),
+
+    available:
+      Number(
+        document.getElementById("menuAvailable").value
+      )
+
+  };
+
+
+  if(!payload.name){
+
+    showToast("Enter food name.");
+
+    return;
+  }
+
+  if(!payload.price){
+
+    showToast("Enter food price.");
+
+    return;
+  }
+
+
+  try{
+
+    if(id){
+
+      await api(
+        `/api/admin/menu/${id}`,
+        {
+          method:"PUT",
+          body:JSON.stringify(payload)
+        }
+      );
+
+      showToast("Food updated.");
+
+    }else{
+
+      await api(
+        "/api/admin/menu",
+        {
+          method:"POST",
+          body:JSON.stringify(payload)
+        }
+      );
+
+      showToast("Food added.");
+
+    }
+
+    closeMenuModal();
+
+    loadMenu();
+
+  }catch(err){
+
+    showToast(err.message);
+
+  }
+
+}
+
+
+async function deleteMenu(id){
+
+  if(!confirm(
+    "Delete this food item?"
+  )){
+    return;
+  }
+
+  try{
+
+    await api(
+      `/api/admin/menu/${id}`,
+      {
+        method:"DELETE"
+      }
+    );
+
+    showToast("Food deleted.");
+
+    loadMenu();
+
+  }catch(err){
+
+    showToast(err.message);
+
+  }
+
+}
+
+
+/* =========================
+   CUSTOMERS
+========================= */
+
+async function loadCustomers(){
+
+  try{
+
+    const data =
+      await api("/api/admin/customers");
+
+    currentCustomers =
+      Array.isArray(data)
+        ? data
+        : (data.customers || []);
+
+    renderCustomers();
+
+    renderCredit();
+
+  }catch(err){
+
+    showToast(err.message);
+
+  }
+
+}
+
+
+function renderCustomers(){
+
+  const tbody =
+    document.getElementById("customersTable");
+
+  if(!currentCustomers.length){
+
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="6">
+          <div class="empty">
+            No customers found.
+          </div>
+        </td>
+      </tr>
+    `;
+
+    return;
+  }
+
+  tbody.innerHTML =
+    currentCustomers.map(customer=>{
+
+      const limit =
+        Number(
+          customer.credit_limit ??
+          customer.limit ??
+          500
+        );
+
+      const used =
+        Number(
+          customer.credit_used ??
+          customer.used ??
+          customer.balance ??
+          0
+        );
+
+      const available =
+        Math.max(0,limit-used);
+
+      return `
+
+        <tr>
+
+          <td>
+            <div class="customer-name">
+              ${escapeHtml(
+                customer.name ||
+                customer.customer_name ||
+                "Customer"
+              )}
+            </div>
+          </td>
+
+          <td>
+            ${escapeHtml(
+              customer.phone || "-"
+            )}
+          </td>
+
+          <td class="money">
+            ${formatAED(limit)}
+          </td>
+
+          <td>
+            ${formatAED(used)}
+          </td>
+
+          <td>
+            <span class="badge">
+              ${formatAED(available)}
+            </span>
+          </td>
+
+          <td>
+
+            <button class="btn btn-light"
+                    onclick="viewCustomer(${customer.id})">
+              View Details
+            </button>
+
+            <button class="btn btn-gold"
+                    onclick="openCreditModal(${customer.id})">
+              Manage
+            </button>
+
+          </td>
+
+        </tr>
+
+      `;
+
+    }).join("");
+
+}
+
+
+function renderCredit(){
+
+  const tbody =
+    document.getElementById("creditTable");
+
+  if(!currentCustomers.length){
+
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="6">
+          <div class="empty">
+            No customers found.
+          </div>
+        </td>
+      </tr>
+    `;
+
+    return;
+  }
+
+  tbody.innerHTML =
+    currentCustomers.map(customer=>{
+
+      const limit =
+        Number(
+          customer.credit_limit ??
+          customer.limit ??
+          500
+        );
+
+      const used =
+        Number(
+          customer.credit_used ??
+          customer.used ??
+          customer.balance ??
+          0
+        );
+
+      const available =
+        Math.max(0,limit-used);
+
+      return `
+
+        <tr>
+
+          <td>
+            <strong>
+              ${escapeHtml(
+                customer.name ||
+                customer.customer_name ||
+                "Customer"
+              )}
+            </strong>
+          </td>
+
+          <td>
+            ${escapeHtml(customer.phone || "-")}
+          </td>
+
+          <td class="money">
+            ${formatAED(limit)}
+          </td>
+
+          <td>
+            ${formatAED(used)}
+          </td>
+
+          <td>
+
+            ${
+              used > limit
+              ?
+              `<span class="badge badge-danger">
+                 ${formatAED(available)}
+               </span>`
+              :
+              `<span class="badge">
+                 ${formatAED(available)}
+               </span>`
+            }
+
+          </td>
+
+          <td>
+
+            <button class="btn btn-gold"
+                    onclick="openCreditModal(${customer.id})">
+              Manage Credit
+            </button>
+
+          </td>
+
+        </tr>
+
+      `;
+
+    }).join("");
+
+}
+
+
+/* =========================
+   CUSTOMER DETAILS
+========================= */
+
+async function viewCustomer(id){
+
+  const customer =
+    currentCustomers.find(
+      c=>Number(c.id)===Number(id)
+    );
+
+  if(!customer){
+
+    showToast("Customer not found.");
+
+    return;
+  }
+
+  openModal("customerModal");
+
+  document.getElementById("customerDetails").innerHTML = `
+    <div class="empty">
+      Loading customer details...
+    </div>
+  `;
+
+
+  try{
+
+    let details = customer;
+
+    try{
+
+      const result =
+        await api(`/api/customer/${id}`);
+
+      if(result){
+        details =
+          result.customer ||
+          result;
+      }
+
+    }catch(e){}
+
+
+    let orders = [];
+
+    try{
+
+      const result =
+        await api(`/api/customer/${id}/orders`);
+
+      orders =
+        Array.isArray(result)
+          ? result
+          : (result.orders || []);
+
+    }catch(e){}
+
+
+    const limit =
+      Number(
+        details.credit_limit ??
+        details.limit ??
+        customer.credit_limit ??
+        500
+      );
+
+    const used =
+      Number(
+        details.credit_used ??
+        details.used ??
+        details.balance ??
+        customer.credit_used ??
+        0
+      );
+
+    const available =
+      Math.max(0,limit-used);
+
+
+    document.getElementById("customerDetails").innerHTML = `
+
+      <div class="detail-grid">
+
+        <div class="detail-box">
+          <div class="detail-label">
+            Customer Name
+          </div>
+
+          <div class="detail-value">
+            ${escapeHtml(
+              details.name ||
+              details.customer_name ||
+              "Customer"
+            )}
+          </div>
+        </div>
+
+
+        <div class="detail-box">
+          <div class="detail-label">
+            Phone
+          </div>
+
+          <div class="detail-value">
+            ${escapeHtml(
+              details.phone || "-"
+            )}
+          </div>
+        </div>
+
+
+        <div class="detail-box">
+          <div class="detail-label">
+            Credit Limit
+          </div>
+
+          <div class="detail-value">
+            ${formatAED(limit)}
+          </div>
+        </div>
+
+
+        <div class="detail-box">
+          <div class="detail-label">
+            Credit Used
+          </div>
+
+          <div class="detail-value">
+            ${formatAED(used)}
+          </div>
+        </div>
+
+
+        <div class="detail-box">
+
+          <div class="detail-label">
+            Available Credit
+          </div>
+
+          <div class="detail-value"
+               style="color:var(--green);">
+
+            ${formatAED(available)}
+
+          </div>
+
+        </div>
+
+
+        <div class="detail-box">
+
+          <div class="detail-label">
+            Customer ID
+          </div>
+
+          <div class="detail-value">
+            #${id}
+          </div>
+
+        </div>
+
+
+        <div class="detail-box detail-full">
+
+          <div class="detail-label">
+            ORDER HISTORY
+          </div>
+
+
+          ${
+            orders.length
+            ?
+
+            orders.map(order=>`
+
+              <div class="history-item">
+
+                <div style="
+                  display:flex;
+                  justify-content:space-between;
+                  gap:10px;
+                  align-items:center;
+                ">
+
+                  <strong>
+                    Order #${order.id}
+                  </strong>
+
+                  <span class="badge">
+                    ${escapeHtml(
+                      order.status ||
+                      "Pending"
+                    )}
+                  </span>
+
+                </div>
+
+
+                <div style="
+                  margin-top:7px;
+                  display:flex;
+                  justify-content:space-between;
+                ">
+
+                  <span>
+                    ${escapeHtml(
+                      getOrderItemsText(order)
+                    )}
+                  </span>
+
+                  <strong>
+                    ${formatAED(order.total)}
+                  </strong>
+
+                </div>
+
+
+                <div class="customer-phone">
+                  ${formatDate(order.created_at)}
+                </div>
+
+              </div>
+
+            `).join("")
+
+            :
+
+            `
+              <div class="empty">
+                No orders found.
+              </div>
+            `
+          }
+
+        </div>
+
+
+        <div class="detail-full"
+             style="display:flex;gap:10px;">
+
+          <button class="btn btn-gold"
+                  onclick="closeCustomerModal();openCreditModal(${id})">
+
+            Manage Credit
+
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+  }catch(err){
+
+    document.getElementById("customerDetails").innerHTML = `
+      <div class="empty">
+        Unable to load customer details.
+      </div>
+    `;
+
+  }
+
+}
+
+
+function closeCustomerModal(){
+
+  closeModal("customerModal");
+
+}
+
+
+/* =========================
+   CREDIT
+========================= */
+
+function openCreditModal(id){
+
+  const customer =
+    currentCustomers.find(
+      c=>Number(c.id)===Number(id)
+    );
+
+  if(!customer){
+
+    showToast("Customer not found.");
+
+    return;
+  }
+
+
+  const limit =
+    Number(
+      customer.credit_limit ??
+      customer.limit ??
+      500
+    );
+
+  const used =
+    Number(
+      customer.credit_used ??
+      customer.used ??
+      customer.balance ??
+      0
+    );
+
+
+  document.getElementById("creditCustomerId").value =
+    id;
+
+  document.getElementById("creditLimit").value =
+    limit;
+
+  document.getElementById("paymentAmount").value =
+    "";
+
+  document.getElementById("paymentNote").value =
+    "";
+
+
+  document.getElementById("creditCustomerInfo").innerHTML = `
+
+    <strong style="color:var(--green);font-size:18px;">
+
+      ${escapeHtml(
+        customer.name ||
+        customer.customer_name ||
+        "Customer"
+      )}
+
+    </strong>
+
+    <div class="customer-phone">
+      ${escapeHtml(customer.phone || "-")}
+    </div>
+
+    <div style="
+      margin-top:10px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+    ">
+
+      <span>
+        Used:
+        <strong>
+          ${formatAED(used)}
+        </strong>
+      </span>
+
+      <span>
+        Limit:
+        <strong>
+          ${formatAED(limit)}
+        </strong>
+      </span>
+
+    </div>
+
+  `;
+
+
+  openModal("creditModal");
+
+}
+
+
+function closeCreditModal(){
+
+  closeModal("creditModal");
+
+}
+
+
+async function saveCreditLimit(){
+
+  const id =
+    document.getElementById("creditCustomerId").value;
+
+  const limit =
+    Number(
+      document.getElementById("creditLimit").value
+    );
+
+
+  if(!id || limit < 0){
+
+    showToast("Enter a valid credit limit.");
+
+    return;
+  }
+
+
+  try{
+
+    await api(
+      `/api/admin/customers/${id}/credit`,
+      {
+        method:"PUT",
+        body:JSON.stringify({
+          credit_limit:limit
+        })
+      }
+    );
+
+    showToast("Credit limit updated.");
+
+    closeCreditModal();
+
+    loadCustomers();
+
+  }catch(err){
+
+    showToast(err.message);
+
+  }
+
+}
+
+
+async function recordPayment(){
+
+  const id =
+    document.getElementById("creditCustomerId").value;
+
+  const amount =
+    Number(
+      document.getElementById("paymentAmount").value
+    );
+
+  const note =
+    document.getElementById("paymentNote").value.trim();
+
+
+  if(!id || amount <= 0){
+
+    showToast("Enter a valid payment amount.");
+
+    return;
+  }
+
+
+  try{
+
+    await api(
+      `/api/admin/customers/${id}/payment`,
+      {
+        method:"POST",
+        body:JSON.stringify({
+          amount,
+          note
+        })
+      }
+    );
+
+    showToast("Payment recorded.");
+
+    closeCreditModal();
+
+    loadCustomers();
+
+  }catch(err){
+
+    showToast(err.message);
+
+  }
+
+}
+
+
+/* =========================
+   MODALS
+========================= */
+
+function openModal(id){
+
+  document
+    .getElementById(id)
+    .classList.add("show");
+
+}
+
+
+function closeModal(id){
+
+  document
+    .getElementById(id)
+    .classList.remove("show");
+
+}
+
+
+document
+  .querySelectorAll(".modal")
+  .forEach(modal=>{
+
+    modal.addEventListener("click",function(e){
+
+      if(e.target === modal){
+
+        modal.classList.remove("show");
+
+      }
+
+    });
+
+  });
+
+
+/* =========================
+   HELPERS
+========================= */
+
+function formatAED(value){
+
+  const number =
+    Number(value || 0);
+
+  return `${number.toFixed(2)} AED`;
+
+}
+
+
+function formatDate(value){
+
+  if(!value){
+    return "";
+  }
+
+  try{
+
+    return new Date(value)
+      .toLocaleString();
+
+  }catch(e){
+
+    return String(value);
+
+  }
+
+}
+
+
+function escapeHtml(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+function escapeAttr(value){
+
+  return escapeHtml(value);
+
+}
+
+
+function showToast(message){
+
+  const toast =
+    document.getElementById("toast");
+
+  toast.textContent =
+    message;
+
+  toast.classList.add("show");
+
+  setTimeout(()=>{
+
+    toast.classList.remove("show");
+
+  },2500);
+
+}
+
+
+/* =========================
+   ENTER LOGIN
+========================= */
+
+document
+  .getElementById("password")
+  .addEventListener("keydown",function(e){
+
+    if(e.key==="Enter"){
+      login();
+    }
+
+  });
+
+
+/* =========================
+   INITIAL CHECK
+========================= */
+
+(async function(){
+
+  try{
+
+    const result =
+      await api("/api/admin/dashboard");
+
+    if(result){
+
+      document.getElementById("loginPage").style.display="none";
+
+      document.getElementById("app").style.display="block";
+
+      loadDashboard();
+
+    }
+
+  }catch(e){
+
+    // Not logged in — stay on login page.
+
+  }
+
+})();
+
+</script>
+
+</body>
+</html>

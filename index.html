@@ -1,229 +1,358 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>FoodCredit</title>
+  <title>THALASSERY</title>
 
-    <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
 
-<header class="header">
+  <!-- NAVBAR -->
+  <header class="navbar">
+
     <div class="logo">
-        <span>🍽️</span> FoodCredit
+      THALASSERY
+      <span>FOOD</span>
     </div>
 
-    <button class="credit-btn" onclick="showCredit()">
-        Credit: ₹<span id="creditBalance">1500</span>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#categories">Categories</a>
+      <a href="#menu">Menu</a>
+      <a href="#orders">Orders</a>
+    </nav>
+
+    <button class="cart-top" onclick="scrollToCart()">
+      🛒 Cart
+      <span id="cartCount">0</span>
     </button>
-</header>
+
+  </header>
 
 
-<main>
+  <!-- HERO -->
+  <section class="hero" id="home">
 
-    <section class="hero">
+    <div class="hero-content">
+
+      <div class="small-title">
+        AUTHENTIC KERALA FLAVOUR
+      </div>
+
+      <h1>
+        Taste of<br>
+        <span>Thalassery</span>
+      </h1>
+
+      <p>
+        Traditional Kerala flavours,
+        freshly prepared for you.
+      </p>
+
+      <button
+        class="main-btn"
+        onclick="scrollToMenu()"
+      >
+        Explore Menu →
+      </button>
+
+    </div>
+
+    <div class="hero-food">
+
+      <div class="food-circle"></div>
+
+      <img
+        src="https://cdn.phototourl.com/free/2026-09-12-c506127c-6326-49c7-ac1d-e630733667af.jpg"
+        alt="Thalassery food"
+      >
+
+    </div>
+
+  </section>
+
+
+  <!-- CUSTOMER -->
+  <section class="customer-section">
+
+    <div class="customer-card">
+
+      <div>
+        <span class="section-mini">ORDERING AS</span>
+        <h2>Customer</h2>
+      </div>
+
+      <div class="customer-inputs">
+
+        <input
+          id="customerName"
+          type="text"
+          placeholder="Your name"
+        >
+
+        <input
+          id="customerPhone"
+          type="tel"
+          placeholder="Phone number"
+        >
+
+        <button
+          class="green-btn"
+          onclick="saveCustomer()"
+        >
+          Continue
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CATEGORIES -->
+  <section class="categories-section" id="categories">
+
+    <div class="section-heading">
+
+      <span>EXPLORE</span>
+
+      <h2>Our Categories</h2>
+
+    </div>
+
+    <div class="category-row">
+
+      <div class="category">
+        <div class="category-icon">🍛</div>
+        <h3>Biriyani</h3>
+        <p>Authentic taste</p>
+      </div>
+
+      <div class="category">
+        <div class="category-icon">🍗</div>
+        <h3>Chicken</h3>
+        <p>Fresh & tasty</p>
+      </div>
+
+      <div class="category">
+        <div class="category-icon">🥘</div>
+        <h3>Meals</h3>
+        <p>Kerala style</p>
+      </div>
+
+      <div class="category">
+        <div class="category-icon">🌯</div>
+        <h3>Rolls</h3>
+        <p>Quick bites</p>
+      </div>
+
+      <div class="category">
+        <div class="category-icon">🥤</div>
+        <h3>Drinks</h3>
+        <p>Fresh drinks</p>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- MENU -->
+  <section class="menu-section" id="menu">
+
+    <div class="section-heading">
+
+      <span>FRESH FROM KITCHEN</span>
+
+      <h2>Popular Menu</h2>
+
+      <p>
+        Delicious food made with
+        authentic Kerala flavours.
+      </p>
+
+    </div>
+
+    <div
+      id="menuGrid"
+      class="menu-grid"
+    >
+      <div class="loading">
+        Loading menu...
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- CART -->
+  <section
+    class="cart-section"
+    id="cart"
+  >
+
+    <div class="cart-card">
+
+      <div class="cart-header">
+
         <div>
-            <p class="small-title">FAST • EASY • CREDIT</p>
-
-            <h1>
-                Order your<br>
-                <span>favorite food.</span>
-            </h1>
-
-            <p class="hero-text">
-                Order now and pay later with your approved credit account.
-            </p>
-
-            <button class="main-btn" onclick="scrollToMenu()">
-                Order Food →
-            </button>
+          <span>YOUR ORDER</span>
+          <h2>Shopping Cart</h2>
         </div>
 
-        <div class="hero-food">
-            🍛
-        </div>
-    </section>
-
-
-    <section class="menu-section" id="menu">
-
-        <div class="section-heading">
-            <div>
-                <p class="small-title">OUR MENU</p>
-                <h2>Choose your food</h2>
-            </div>
-
-            <div class="cart-count">
-                🛒 <span id="cartCount">0</span>
-            </div>
+        <div
+          class="cart-total-top"
+          id="cartTotal"
+        >
+          AED 0.00
         </div>
 
-
-        <div class="menu-grid">
-
-            <div class="food-card">
-                <div class="food-image">🍗</div>
-
-                <div class="food-info">
-                    <h3>Chicken Rice</h3>
-                    <p>Chicken + rice + special sauce</p>
-
-                    <div class="food-bottom">
-                        <strong>₹120</strong>
-
-                        <button onclick="addToCart('Chicken Rice',120)">
-                            +
-                        </button>
-                    </div>
-                </div>
-            </div>
+      </div>
 
 
-            <div class="food-card">
-                <div class="food-image">🍛</div>
+      <div
+        id="cartItems"
+        class="cart-items"
+      >
 
-                <div class="food-info">
-                    <h3>Chicken Biriyani</h3>
-                    <p>Special chicken biriyani</p>
+        <div class="empty-cart">
+          Your cart is empty
+        </div>
 
-                    <div class="food-bottom">
-                        <strong>₹150</strong>
-
-                        <button onclick="addToCart('Chicken Biriyani',150)">
-                            +
-                        </button>
-                    </div>
-                </div>
-            </div>
+      </div>
 
 
-            <div class="food-card">
-                <div class="food-image">🥘</div>
+      <div class="cart-bottom">
 
-                <div class="food-info">
-                    <h3>Chicken Meals</h3>
-                    <p>Full meal with chicken</p>
+        <div>
 
-                    <div class="food-bottom">
-                        <strong>₹130</strong>
+          <small>TOTAL</small>
 
-                        <button onclick="addToCart('Chicken Meals',130)">
-                            +
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="food-card">
-                <div class="food-image">🥚</div>
-
-                <div class="food-info">
-                    <h3>Egg Rice</h3>
-                    <p>Fresh egg fried rice</p>
-
-                    <div class="food-bottom">
-                        <strong>₹90</strong>
-
-                        <button onclick="addToCart('Egg Rice',90)">
-                            +
-                        </button>
-                    </div>
-                </div>
-            </div>
+          <strong id="cartTotalBottom">
+            AED 0.00
+          </strong>
 
         </div>
 
-    </section>
+        <div class="payment-buttons">
 
+          <button
+            class="pay-btn"
+            onclick="placeOrder('pay')"
+          >
+            💵 Pay Now
+          </button>
 
-    <section class="cart-section">
-
-        <div class="cart-box">
-
-            <div class="cart-title">
-                <h2>Your Order</h2>
-
-                <button onclick="clearCart()" class="clear-btn">
-                    Clear
-                </button>
-            </div>
-
-            <div id="cartItems">
-                <p class="empty">
-                    Your cart is empty.
-                </p>
-            </div>
-
-
-            <div class="cart-total">
-                <span>Total</span>
-                <strong>₹<span id="total">0</span></strong>
-            </div>
-
-
-            <div class="payment-options">
-
-                <button class="pay-btn" onclick="payNow()">
-                    💳 Pay Now
-                </button>
-
-                <button class="credit-order-btn" onclick="addToCredit()">
-                    🟦 Add to Credit
-                </button>
-
-            </div>
+          <button
+            class="credit-btn"
+            onclick="placeOrder('credit')"
+          >
+            💳 Add to Credit
+          </button>
 
         </div>
 
-    </section>
+      </div>
+
+    </div>
+
+  </section>
 
 
-    <section class="credit-section">
+  <!-- CREDIT -->
+  <section class="credit-section">
 
-        <div class="credit-card">
+    <div class="credit-card">
 
-            <p class="small-title">YOUR ACCOUNT</p>
+      <div>
+        <span>MY ACCOUNT</span>
+        <h2>Credit Balance</h2>
+      </div>
 
-            <h2>Credit Account</h2>
+      <div class="credit-details">
 
-            <div class="credit-number">
-                ₹<span id="creditDisplay">1500</span>
-            </div>
-
-            <p>Available credit</p>
-
-            <div class="credit-progress">
-                <div id="creditProgress"></div>
-            </div>
-
-            <div class="credit-info">
-                <span>Credit Limit</span>
-                <strong>₹2,000</strong>
-            </div>
-
+        <div>
+          <small>LIMIT</small>
+          <strong id="creditLimit">
+            AED 0.00
+          </strong>
         </div>
 
-    </section>
+        <div>
+          <small>USED</small>
+          <strong id="creditUsed">
+            AED 0.00
+          </strong>
+        </div>
 
-</main>
+        <div class="available">
+          <small>AVAILABLE</small>
+          <strong id="creditAvailable">
+            AED 0.00
+          </strong>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
 
 
-<footer>
-    <strong>FoodCredit</strong>
-    <p>Food ordering made simple.</p>
-</footer>
+  <!-- ORDERS -->
+  <section
+    class="orders-section"
+    id="orders"
+  >
+
+    <div class="section-heading">
+
+      <span>YOUR HISTORY</span>
+
+      <h2>My Orders</h2>
+
+    </div>
+
+    <div id="ordersList">
+
+      <div class="empty-orders">
+        Login as customer to see your orders.
+      </div>
+
+    </div>
+
+  </section>
 
 
-<div id="notification" class="notification">
-    Order added successfully!
-</div>
+  <!-- FOOTER -->
+  <footer>
+
+    <div class="footer-logo">
+      THALASSERY
+    </div>
+
+    <p>
+      Authentic Kerala Food
+    </p>
+
+    <div class="footer-line"></div>
+
+    <small>
+      © 2026 THALASSERY. All rights reserved.
+    </small>
+
+  </footer>
 
 
-<script src="script.js"></script>
+  <div id="message"></div>
+
+
+  <script src="/script.js"></script>
 
 </body>
 </html>
