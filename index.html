@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FoodCredit</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="logo">
+        <span>🍽️</span> FoodCredit
+    </div>
+
+    <button class="credit-btn" onclick="showCredit()">
+        Credit: ₹<span id="creditBalance">1500</span>
+    </button>
+</header>
+
+
+<main>
+
+    <section class="hero">
+        <div>
+            <p class="small-title">FAST • EASY • CREDIT</p>
+
+            <h1>
+                Order your<br>
+                <span>favorite food.</span>
+            </h1>
+
+            <p class="hero-text">
+                Order now and pay later with your approved credit account.
+            </p>
+
+            <button class="main-btn" onclick="scrollToMenu()">
+                Order Food →
+            </button>
+        </div>
+
+        <div class="hero-food">
+            🍛
+        </div>
+    </section>
+
+
+    <section class="menu-section" id="menu">
+
+        <div class="section-heading">
+            <div>
+                <p class="small-title">OUR MENU</p>
+                <h2>Choose your food</h2>
+            </div>
+
+            <div class="cart-count">
+                🛒 <span id="cartCount">0</span>
+            </div>
+        </div>
+
+
+        <div class="menu-grid">
+
+            <div class="food-card">
+                <div class="food-image">🍗</div>
+
+                <div class="food-info">
+                    <h3>Chicken Rice</h3>
+                    <p>Chicken + rice + special sauce</p>
+
+                    <div class="food-bottom">
+                        <strong>₹120</strong>
+
+                        <button onclick="addToCart('Chicken Rice',120)">
+                            +
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="food-card">
+                <div class="food-image">🍛</div>
+
+                <div class="food-info">
+                    <h3>Chicken Biriyani</h3>
+                    <p>Special chicken biriyani</p>
+
+                    <div class="food-bottom">
+                        <strong>₹150</strong>
+
+                        <button onclick="addToCart('Chicken Biriyani',150)">
+                            +
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="food-card">
+                <div class="food-image">🥘</div>
+
+                <div class="food-info">
+                    <h3>Chicken Meals</h3>
+                    <p>Full meal with chicken</p>
+
+                    <div class="food-bottom">
+                        <strong>₹130</strong>
+
+                        <button onclick="addToCart('Chicken Meals',130)">
+                            +
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="food-card">
+                <div class="food-image">🥚</div>
+
+                <div class="food-info">
+                    <h3>Egg Rice</h3>
+                    <p>Fresh egg fried rice</p>
+
+                    <div class="food-bottom">
+                        <strong>₹90</strong>
+
+                        <button onclick="addToCart('Egg Rice',90)">
+                            +
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="cart-section">
+
+        <div class="cart-box">
+
+            <div class="cart-title">
+                <h2>Your Order</h2>
+
+                <button onclick="clearCart()" class="clear-btn">
+                    Clear
+                </button>
+            </div>
+
+            <div id="cartItems">
+                <p class="empty">
+                    Your cart is empty.
+                </p>
+            </div>
+
+
+            <div class="cart-total">
+                <span>Total</span>
+                <strong>₹<span id="total">0</span></strong>
+            </div>
+
+
+            <div class="payment-options">
+
+                <button class="pay-btn" onclick="payNow()">
+                    💳 Pay Now
+                </button>
+
+                <button class="credit-order-btn" onclick="addToCredit()">
+                    🟦 Add to Credit
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="credit-section">
+
+        <div class="credit-card">
+
+            <p class="small-title">YOUR ACCOUNT</p>
+
+            <h2>Credit Account</h2>
+
+            <div class="credit-number">
+                ₹<span id="creditDisplay">1500</span>
+            </div>
+
+            <p>Available credit</p>
+
+            <div class="credit-progress">
+                <div id="creditProgress"></div>
+            </div>
+
+            <div class="credit-info">
+                <span>Credit Limit</span>
+                <strong>₹2,000</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+    <strong>FoodCredit</strong>
+    <p>Food ordering made simple.</p>
+</footer>
+
+
+<div id="notification" class="notification">
+    Order added successfully!
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
