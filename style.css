@@ -1,0 +1,413 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f7f8fa;
+    color: #151515;
+}
+
+.header {
+    height: 75px;
+    background: white;
+    border-bottom: 1px solid #eee;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 7%;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: 800;
+}
+
+.logo span {
+    margin-right: 5px;
+}
+
+.credit-btn {
+    border: 0;
+    background: #111;
+    color: white;
+
+    padding: 11px 18px;
+    border-radius: 30px;
+
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.hero {
+    max-width: 1150px;
+    margin: auto;
+
+    min-height: 450px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 60px 30px;
+}
+
+.small-title {
+    color: #777;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.hero h1 {
+    font-size: clamp(45px, 7vw, 80px);
+    line-height: .95;
+    letter-spacing: -4px;
+}
+
+.hero h1 span {
+    color: #ff5a1f;
+}
+
+.hero-text {
+    color: #666;
+    margin-top: 25px;
+    max-width: 450px;
+    line-height: 1.6;
+}
+
+.main-btn {
+    margin-top: 25px;
+
+    border: 0;
+    background: #ff5a1f;
+    color: white;
+
+    padding: 15px 25px;
+    border-radius: 12px;
+
+    font-size: 15px;
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+.hero-food {
+    width: 280px;
+    height: 280px;
+
+    background: #ffe4d7;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 140px;
+
+    box-shadow: 0 25px 60px rgba(0,0,0,.1);
+}
+
+.menu-section {
+    max-width: 1150px;
+    margin: auto;
+    padding: 50px 30px;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-bottom: 25px;
+}
+
+.section-heading h2 {
+    font-size: 34px;
+}
+
+.cart-count {
+    background: white;
+    border: 1px solid #eee;
+    padding: 12px 18px;
+    border-radius: 30px;
+    font-weight: bold;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.food-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid #eee;
+    transition: .2s;
+}
+
+.food-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,.08);
+}
+
+.food-image {
+    height: 170px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #fff0e8;
+
+    font-size: 80px;
+}
+
+.food-info {
+    padding: 18px;
+}
+
+.food-info h3 {
+    margin-bottom: 8px;
+}
+
+.food-info p {
+    color: #777;
+    font-size: 13px;
+    min-height: 35px;
+}
+
+.food-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 15px;
+}
+
+.food-bottom strong {
+    font-size: 20px;
+}
+
+.food-bottom button {
+    width: 38px;
+    height: 38px;
+
+    border: 0;
+    border-radius: 50%;
+
+    background: #111;
+    color: white;
+
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.cart-section {
+    max-width: 750px;
+    margin: auto;
+    padding: 30px;
+}
+
+.cart-box {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 22px;
+    padding: 25px;
+}
+
+.cart-title {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.clear-btn {
+    border: 0;
+    background: transparent;
+    color: #e33;
+    cursor: pointer;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.empty {
+    color: #888;
+    padding: 20px 0;
+}
+
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 22px 0;
+
+    font-size: 22px;
+}
+
+.payment-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.pay-btn,
+.credit-order-btn {
+    border: 0;
+    padding: 15px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.pay-btn {
+    background: #111;
+    color: white;
+}
+
+.credit-order-btn {
+    background: #e8f2ff;
+    color: #1769aa;
+}
+
+.credit-section {
+    max-width: 750px;
+    margin: auto;
+    padding: 30px;
+}
+
+.credit-card {
+    background: #111;
+    color: white;
+
+    border-radius: 25px;
+    padding: 30px;
+}
+
+.credit-card .small-title {
+    color: #aaa;
+}
+
+.credit-number {
+    font-size: 45px;
+    font-weight: 800;
+    margin: 20px 0 5px;
+}
+
+.credit-card p {
+    color: #aaa;
+}
+
+.credit-progress {
+    height: 8px;
+    background: #333;
+    border-radius: 10px;
+    margin: 25px 0;
+    overflow: hidden;
+}
+
+#creditProgress {
+    height: 100%;
+    width: 75%;
+    background: #ff5a1f;
+}
+
+.credit-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.credit-info span {
+    color: #aaa;
+}
+
+footer {
+    margin-top: 60px;
+    padding: 40px;
+    text-align: center;
+    background: #111;
+    color: white;
+}
+
+footer p {
+    color: #888;
+    margin-top: 8px;
+}
+
+.notification {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+
+    background: #111;
+    color: white;
+
+    padding: 15px 20px;
+    border-radius: 12px;
+
+    transform: translateY(100px);
+    opacity: 0;
+
+    transition: .3s;
+}
+
+.notification.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+@media (max-width: 850px) {
+
+    .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .hero-food {
+        width: 200px;
+        height: 200px;
+        font-size: 90px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .header {
+        padding: 0 20px;
+    }
+
+    .hero {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 40px;
+    }
+
+    .hero h1 {
+        font-size: 55px;
+    }
+
+    .hero-food {
+        align-self: center;
+    }
+
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .payment-options {
+        grid-template-columns: 1fr;
+    }
+}
