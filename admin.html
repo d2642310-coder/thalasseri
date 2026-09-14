@@ -726,6 +726,48 @@ tr:last-child td{
 }
 
 </style>
+
+<style>
+.order-action-buttons {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+}
+
+.order-action-buttons .btn {
+  margin: 0 !important;
+  min-width: 72px !important;
+  height: 36px !important;
+  padding: 0 12px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+}
+
+.order-action-buttons .location-btn {
+  border: 1px solid #d7e4da !important;
+  border-radius: 10px !important;
+  background: #f8fbf8 !important;
+  color: #176b3a !important;
+  cursor: pointer !important;
+}
+
+.order-action-buttons .location-btn:hover {
+  background: #e9f2eb !important;
+  border-color: #176b3a !important;
+}
+
+@media (max-width: 700px) {
+  .order-action-buttons {
+    justify-content: flex-start !important;
+  }
+}
+</style>
+
 </head>
 
 <body>
@@ -1680,6 +1722,12 @@ function renderOrders(){
       const items =
         getOrderItemsText(order);
 
+      const hasLocation =
+        order.latitude !== null &&
+        order.latitude !== undefined &&
+        order.longitude !== null &&
+        order.longitude !== undefined;
+
       return `
         <tr>
 
@@ -1703,6 +1751,7 @@ function renderOrders(){
               ${escapeHtml(
                 order.phone ||
                 order.customer_phone ||
+                order.contact_number ||
                 ""
               )}
             </div>
@@ -1734,10 +1783,57 @@ function renderOrders(){
 
           <td>
 
-            <button class="btn btn-light"
-                    onclick="viewOrder(${order.id})">
-              View
-            </button>
+            <div style="
+              display:flex;
+              align-items:center;
+              justify-content:center;
+              gap:8px;
+              flex-wrap:nowrap;
+              white-space:nowrap;
+            ">
+
+              <button
+                type="button"
+                class="btn btn-light"
+                style="
+                  margin:0 !important;
+                  height:36px;
+                  min-width:72px;
+                  display:inline-flex;
+                  align-items:center;
+                  justify-content:center;
+                "
+                onclick="viewOrder(${order.id})">
+                View
+              </button>
+
+              ${
+                hasLocation
+                ? `
+                  <button
+                    type="button"
+                    class="btn btn-light"
+                    style="
+                      margin:0 !important;
+                      height:36px;
+                      min-width:100px;
+                      display:inline-flex;
+                      align-items:center;
+                      justify-content:center;
+                      border:1px solid #d7e4da;
+                      border-radius:10px;
+                      background:#f8fbf8;
+                      color:#176b3a;
+                      font-weight:700;
+                    "
+                    onclick="openOrderLocation(${order.latitude}, ${order.longitude})">
+                    📍 Location
+                  </button>
+                `
+                : ""
+              }
+
+            </div>
 
           </td>
 
@@ -1747,7 +1843,6 @@ function renderOrders(){
     }).join("");
 
 }
-
 
 function renderRecentOrders(){
 
@@ -1813,10 +1908,62 @@ function renderRecentOrders(){
           </td>
 
           <td>
-            <button class="btn btn-light"
-                    onclick="viewOrder(${order.id})">
-              View
-            </button>
+            <div style="
+              display:flex;
+              flex-direction:row;
+              align-items:center;
+              justify-content:center;
+              gap:8px;
+              flex-wrap:nowrap;
+              white-space:nowrap;
+            ">
+
+              <button
+                type="button"
+                class="btn btn-light"
+                onclick="viewOrder(${order.id})"
+                style="
+                  margin:0 !important;
+                  height:36px;
+                  min-width:72px;
+                  display:inline-flex;
+                  align-items:center;
+                  justify-content:center;
+                ">
+                View
+              </button>
+
+              ${
+                order.latitude !== null &&
+                order.latitude !== undefined &&
+                order.longitude !== null &&
+                order.longitude !== undefined
+                ? `
+                  <button
+                    type="button"
+                    class="btn btn-light"
+                    onclick="openOrderLocation(${order.latitude}, ${order.longitude})"
+                    style="
+                      margin:0 !important;
+                      height:36px;
+                      min-width:100px;
+                      display:inline-flex;
+                      align-items:center;
+                      justify-content:center;
+                      white-space:nowrap;
+                      border:1px solid #d7e4da;
+                      border-radius:10px;
+                      background:#f8fbf8;
+                      color:#176b3a;
+                      font-weight:700;
+                    ">
+                    📍 Location
+                  </button>
+                `
+                : ""
+              }
+
+            </div>
           </td>
 
         </tr>
@@ -3261,5 +3408,105 @@ document
 
 </script>
 
+
+<script>
+function openOrderLocation(latitude, longitude) {
+  latitude = Number(latitude);
+  longitude = Number(longitude);
+
+  if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) {
+    alert("Customer location is not available.");
+    return;
+  }
+
+  const url =
+    "https://www.google.com/maps/search/?api=1&query=" +
+    encodeURIComponent(latitude + "," + longitude);
+
+  window.open(url, "_blank");
+}
+</script>
+
 </body>
 </html>
+<style>
+/* ================================
+   ORDER LOCATION BUTTON
+   MATCH ADMIN DESIGN
+================================ */
+
+.btn-location,
+button[onclick^="openOrderLocation"] {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+
+  height: 36px !important;
+  padding: 0 13px !important;
+
+  border: 1px solid #d7e4da !important;
+  border-radius: 10px !important;
+
+  background: #f8fbf8 !important;
+  color: #176b3a !important;
+
+  font-family: inherit !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+
+  cursor: pointer !important;
+  transition: all .2s ease !important;
+}
+
+.btn-location:hover,
+button[onclick^="openOrderLocation"]:hover {
+  background: #e9f2eb !important;
+  border-color: #176b3a !important;
+  transform: translateY(-1px);
+}
+
+.btn-location:active,
+button[onclick^="openOrderLocation"]:active {
+  transform: translateY(0);
+}
+</style>
+
+
+<style>
+/* FORCE ORDER ACTION BUTTONS INTO ONE ROW */
+
+#ordersTable td:last-child {
+  min-width: 220px !important;
+  width: 220px !important;
+  white-space: nowrap !important;
+}
+
+#ordersTable td:last-child > div {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-wrap: nowrap !important;
+  gap: 8px !important;
+  width: 100% !important;
+  white-space: nowrap !important;
+}
+
+#ordersTable td:last-child button {
+  flex: 0 0 auto !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  vertical-align: middle !important;
+  margin: 0 !important;
+  white-space: nowrap !important;
+}
+
+#ordersTable td:last-child .btn-light {
+  height: 36px !important;
+  min-height: 36px !important;
+}
+
+</style>
+

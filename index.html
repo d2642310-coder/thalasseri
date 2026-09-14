@@ -11,27 +11,91 @@
 
 <body>
 
-  <!-- NAVBAR -->
-  <header class="navbar">
+<header class="navbar">
+  <div class="logo">
+    THALASSERY <span>FOOD</span>
+  </div>
 
-    <div class="logo">
-      THALASSERY
-      <span>FOOD</span>
-    </div>
+  <nav class="desktop-nav">
+    <a href="#home">Home</a>
+    <a href="#categories">Categories</a>
+    <a href="#menu">Menu</a>
+    <a href="#orders">Orders</a>
+  </nav>
 
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#categories">Categories</a>
-      <a href="#menu">Menu</a>
-      <a href="#orders">Orders</a>
-    </nav>
+  <div class="nav-actions">
 
-    <button class="cart-top" onclick="scrollToCart()">
-      🛒 Cart
-      <span id="cartCount">0</span>
+    <span id="customerLoginStatus" class="login-status">
+      Guest
+    </span>
+
+    <button
+      class="cart-top"
+      type="button"
+      onclick="scrollToCart()"
+    >
+      🛒 Cart <span id="cartCount">0</span>
     </button>
 
-  </header>
+    <button
+      class="nav-more-btn"
+      type="button"
+      onclick="toggleNavMenu()"
+      aria-label="Open menu"
+    >
+      ☰
+    </button>
+
+  </div>
+
+  <div class="nav-more-menu" id="navMoreMenu">
+
+    <a href="#home" onclick="closeNavMenu()">
+      Home
+    </a>
+
+    <a href="#categories" onclick="closeNavMenu()">
+      Categories
+    </a>
+
+    <a href="#menu" onclick="closeNavMenu()">
+      Menu
+    </a>
+
+    <a href="#orders" onclick="closeNavMenu()">
+      Orders
+    </a>
+
+    <div class="mobile-menu-divider"></div>
+
+    <a
+      href="javascript:void(0)"
+      onclick="openCustomerAuth(); closeNavMenu();"
+      id="mobileAuthButton"
+    >
+      Login / Create Account
+    </a>
+
+    <a
+      href="javascript:void(0)"
+      onclick="logoutCustomer(); closeNavMenu();"
+      id="mobileLogoutButton"
+      style="display:none;"
+    >
+      🚪 Logout
+    </a>
+
+  </div>
+</header>
+
+
+
+
+
+
+
+  <!-- NAVBAR -->
+  
 
 
   <!-- HERO -->
@@ -84,28 +148,167 @@
       <div>
         <span class="section-mini">ORDERING AS</span>
         <h2>Customer</h2>
-      </div>
+<div class="customer-auth-box">
 
-      <div class="customer-inputs">
+  <div class="auth-tabs">
 
-        <input
-          id="customerName"
-          type="text"
-          placeholder="Your name"
-        >
+    <button
+      type="button"
+      id="createAccountTab"
+      class="auth-tab active"
+      onclick="showCreateAccount()"
+    >
+      Create Account
+    </button>
 
-        <input
-          id="customerPhone"
-          type="tel"
-          placeholder="Phone number"
-        >
+    <button
+      type="button"
+      id="loginTab"
+      class="auth-tab"
+      onclick="showCustomerLogin()"
+    >
+      Login
+    </button>
 
-        <button
-          class="green-btn"
-          onclick="saveCustomer()"
-        >
-          Continue
-        </button>
+  </div>
+
+
+  <!-- CREATE ACCOUNT -->
+
+  <div id="createAccountBox" class="auth-form">
+
+    <div class="auth-heading">
+      Create your THALASSERY account
+    </div>
+
+    <p class="auth-subheading">
+      Create your account with phone verification.
+    </p>
+
+    <input
+      id="customerName"
+      type="text"
+      placeholder="Your full name"
+      autocomplete="name"
+    >
+
+    <input
+      id="customerPhone"
+      type="tel"
+      placeholder="Phone number"
+      autocomplete="tel"
+    >
+
+    <input
+      id="customerPassword"
+      type="password"
+      placeholder="Create password (6+ characters)"
+      autocomplete="new-password"
+    >
+
+    <input
+      id="customerConfirmPassword"
+      type="password"
+      placeholder="Confirm password"
+      autocomplete="new-password"
+    >
+
+    <button
+      class="green-btn auth-main-btn"
+      type="button"
+      onclick="requestCustomerOTP()"
+    >
+      Get OTP
+    </button>
+
+  </div>
+
+
+  <!-- LOGIN -->
+
+  <div
+    id="loginBox"
+    class="auth-form"
+    style="display:none;"
+  >
+
+    <div class="auth-heading">
+      Welcome back
+    </div>
+
+    <p class="auth-subheading">
+      Login using your phone number or account name.
+    </p>
+
+    <input
+      id="loginIdentifier"
+      type="text"
+      placeholder="Phone number or name"
+      autocomplete="username"
+    >
+
+    <input
+      id="loginPassword"
+      type="password"
+      placeholder="Password"
+      autocomplete="current-password"
+    >
+
+    <button
+      class="green-btn auth-main-btn"
+      type="button"
+      onclick="loginCustomerWithPassword()"
+    >
+      Login
+    </button>
+
+  </div>
+
+
+  <!-- OTP -->
+
+  <div
+    id="otpBox"
+    class="otp-box"
+    style="display:none;"
+  >
+
+    <div class="otp-title">
+      🔐 Verify your phone
+    </div>
+
+    <p class="otp-subtitle">
+      Enter the 6-digit OTP shown in the server terminal to verify your phone.
+    </p>
+
+    <input
+      id="customerOTP"
+      type="text"
+      inputmode="numeric"
+      maxlength="6"
+      placeholder="Enter 6-digit OTP"
+      autocomplete="one-time-code"
+    >
+
+    <button
+      class="green-btn auth-main-btn"
+      type="button"
+      onclick="verifyCustomerOTP()"
+    >
+      Verify & Create Account
+    </button>
+
+    <button
+      class="otp-resend"
+      type="button"
+      onclick="resendCustomerOTP()"
+    >
+      Resend OTP
+    </button>
+
+  </div>
+
+</div>
 
       </div>
 
@@ -239,7 +442,118 @@
 
         </div>
 
-        <div class="payment-buttons">
+        
+<!-- =====================================================
+     DELIVERY DETAILS
+===================================================== -->
+
+<div class="delivery-user-info">
+
+  <div class="delivery-field">
+    <label>Building / House Number</label>
+    <input
+      id="buildingNumber"
+      type="text"
+      placeholder="e.g. Villa 12 / Flat 304"
+    >
+  </div>
+
+  <div class="delivery-field">
+    <label>Building Name</label>
+    <input
+      id="buildingName"
+      type="text"
+      placeholder="Building / Villa name"
+    >
+  </div>
+
+</div>
+
+<div class="delivery-field">
+  <label>Street / Area</label>
+  <input
+    id="streetArea"
+    type="text"
+    placeholder="Street, area or landmark"
+  >
+</div>
+
+<div class="delivery-map-box">
+
+  <div class="delivery-map-title">
+    <span>📍 Delivery Location</span>
+    <small>Tap the map to select your exact location</small>
+  </div>
+
+  <div
+    id="deliveryMap"
+    class="delivery-map"
+  ></div>
+
+  <div class="map-actions">
+
+    <button
+      type="button"
+      class="map-location-btn"
+      onclick="openGoogleMapLocation()"
+    >
+      📍 Open Google Maps
+    </button>
+
+    <button
+      type="button"
+      class="current-location-btn"
+      onclick="useCurrentLocation()"
+    >
+      🎯 Use My Current Location
+    </button>
+
+  </div>
+
+  <div
+    id="selectedLocation"
+    class="selected-location"
+  >
+    📍 Tap the map or use current location
+  </div>
+
+  <input
+    id="mapLatitude"
+    type="hidden"
+  >
+
+  <input
+    id="mapLongitude"
+    type="hidden"
+  >
+
+</div>
+
+<div class="delivery-field">
+
+  <label>
+    Delivery Note <span>(Optional)</span>
+  </label>
+
+  <textarea
+    id="deliveryNote"
+    rows="2"
+    placeholder="Example: Call me when you reach the building"
+  ></textarea>
+
+</div>
+
+<input
+  id="deliveryAddress"
+  type="hidden"
+>
+
+<div class="order-time-note">
+  ⏰ Order time will be recorded automatically
+</div>
+
+
+<div class="payment-buttons">
 
           <button
             class="pay-btn"

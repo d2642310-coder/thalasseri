@@ -15,6 +15,10 @@ CORS(app, supports_credentials=True)
 
 DB_NAME = "database.db"
 
+# Temporary in-memory OTP storage for customer registration
+OTP_STORE = {}
+OTP_EXPIRY_SECONDS = 300  # OTP valid for 5 minutes
+
 
 # =========================================================
 # DATABASE
@@ -48,6 +52,18 @@ def init_db():
             created_at TEXT NOT NULL
         )
     """)
+
+    # Safe migration: add password_hash to existing customer database
+    customer_columns = [
+        row["name"]
+        for row in cur.execute("PRAGMA table_info(customers)").fetchall()
+    ]
+
+    if "password_hash" not in customer_columns:
+        cur.execute(
+            "ALTER TABLE customers ADD COLUMN password_hash TEXT"
+        )
+
 
     cur.execute("""
         CREATE TABLE IF NOT EXISTS menu_items (
@@ -228,6 +244,348 @@ def get_menu():
 # =========================================================
 # CUSTOMER
 # =========================================================
+
+
+
+# =========================================================
+# CUSTOMER OTP
+# =========================================================
+
+@app.route("/api/customer/request-otp", methods=["POST"])
+def request_customer_otp():
+
+    data = request.get_json() or {}
+
+    name = str(data.get("name", "")).strip()
+    phone = str(data.get("phone", "")).strip()
+
+    if not name:
+        return jsonify({
+            "error": "Name is required"
+        }), 400
+
+    if not phone:
+        return jsonify({
+            "error": "Phone number is required"
+        }), 400
+
+    import random
+    import time
+
+    otp = str(random.randint(100000, 999999))
+
+    OTP_STORE[phone] = {
+        "otp": otp,
+        "name": name,
+        "created": time.time()
+    }
+
+    # DEVELOPMENT MODE:
+    # OTP is printed in the Codespaces terminal.
+    print("")
+    print("=" * 55)
+    print("📱 THALASSERY CUSTOMER OTP")
+    print("Phone:", phone)
+    print("OTP:", otp)
+    print("=" * 55)
+    print("")
+
+    return jsonify({
+        "success": True,
+        "message": "OTP generated successfully"
+    })
+
+
+@app.route("/api/customer/verify-otp", methods=["POST"])
+def verify_customer_otp():
+
+    data = request.get_json() or {}
+
+    name = str(data.get("name", "")).strip()
+    phone = str(data.get("phone", "")).strip()
+    password = str(data.get("password", "") or "")
+    confirm_password = str(data.get("confirm_password", "") or "")
+    otp = str(data.get("otp", "")).strip()
+
+    if not phone or not otp:
+        return jsonify({
+            "error": "Phone and OTP are required"
+        }), 400
+
+    if not name:
+        return jsonify({
+            "error": "Name is required"
+        }), 400
+
+    if len(password) < 6:
+        return jsonify({
+            "error": "Password must be at least 6 characters"
+        }), 400
+
+    if password != confirm_password:
+        return jsonify({
+            "error": "Passwords do not match"
+        }), 400
+
+    import time
+
+    record = OTP_STORE.get(phone)
+
+    if not record:
+        return jsonify({
+            "error": "OTP expired or not requested"
+        }), 400
+
+    if time.time() - record["created"] > OTP_EXPIRY_SECONDS:
+        OTP_STORE.pop(phone, None)
+
+        return jsonify({
+            "error": "OTP expired. Please request a new OTP."
+        }), 400
+
+    if str(record["otp"]) != otp:
+        return jsonify({
+            "error": "Invalid OTP"
+        }), 400
+
+    conn = get_db()
+
+    existing = conn.execute(
+        "SELECT * FROM customers WHERE phone = ?",
+        (phone,)
+    ).fetchone()
+
+    if existing:
+        conn.close()
+        OTP_STORE.pop(phone, None)
+
+        return jsonify({
+            "error": "An account with this phone number already exists. Please login."
+        }), 409
+
+    password_hash = generate_password_hash(password)
+    now = datetime.now().isoformat()
+
+    cur = conn.execute("""
+        INSERT INTO customers
+        (name, phone, password_hash, credit_limit, credit_used, created_at)
+        VALUES (?, ?, ?, 500, 0, ?)
+    """, (
+        name,
+        phone,
+        password_hash,
+        now
+    ))
+
+    customer_id = cur.lastrowid
+    conn.commit()
+
+    customer = conn.execute(
+        "SELECT * FROM customers WHERE id = ?",
+        (customer_id,)
+    ).fetchone()
+
+    conn.close()
+
+    OTP_STORE.pop(phone, None)
+
+    session["customer_id"] = customer_id
+
+    return jsonify({
+        "success": True,
+        "customer_id": customer_id,
+        "id": customer_id,
+        "name": customer["name"],
+        "phone": customer["phone"],
+        "message": "Account created successfully"
+    })
+
+@app.route("/api/customer/register", methods=["POST"])
+def register_customer():
+    data = request.get_json(silent=True) or {}
+
+    name = str(data.get("name", "")).strip()
+    phone = str(data.get("phone", "")).strip()
+    password = str(data.get("password", ""))
+    confirm_password = str(data.get("confirm_password", ""))
+    otp = str(data.get("otp", "")).strip()
+
+    if not name:
+        return jsonify({"error": "Please enter your name."}), 400
+
+    if len(name) < 2:
+        return jsonify({"error": "Name must contain at least 2 characters."}), 400
+
+    if not phone:
+        return jsonify({"error": "Please enter your phone number."}), 400
+
+    if not password:
+        return jsonify({"error": "Please create a password."}), 400
+
+    if len(password) < 6:
+        return jsonify({"error": "Password must be at least 6 characters."}), 400
+
+    if password != confirm_password:
+        return jsonify({"error": "Passwords do not match."}), 400
+
+    if not otp or not otp.isdigit() or len(otp) != 6:
+        return jsonify({"error": "Please enter the 6-digit OTP."}), 400
+
+    # Check OTP generated by the existing OTP system
+    otp_data = OTP_STORE.get(phone)
+
+    if not otp_data:
+        return jsonify({
+            "error": "OTP not found. Please request a new OTP."
+        }), 400
+
+    if datetime.now().timestamp() > otp_data["expires"]:
+        OTP_STORE.pop(phone, None)
+        return jsonify({
+            "error": "OTP expired. Please request a new OTP."
+        }), 400
+
+    if str(otp_data["otp"]) != otp:
+        return jsonify({"error": "Invalid OTP."}), 400
+
+    conn = get_db()
+    cur = conn.cursor()
+
+    existing = cur.execute(
+        "SELECT * FROM customers WHERE phone = ?",
+        (phone,)
+    ).fetchone()
+
+    if existing:
+        conn.close()
+        return jsonify({
+            "error": "An account with this phone number already exists. Please login."
+        }), 409
+
+    password_hash = generate_password_hash(password)
+
+    cur.execute("""
+        INSERT INTO customers
+        (name, phone, password_hash, credit_limit, credit_used, created_at)
+        VALUES (?, ?, ?, ?, ?, ?)
+    """, (
+        name,
+        phone,
+        password_hash,
+        500,
+        0,
+        datetime.now().isoformat()
+    ))
+
+    customer_id = cur.lastrowid
+
+    conn.commit()
+
+    customer = cur.execute(
+        "SELECT id, name, phone, credit_limit, credit_used, created_at "
+        "FROM customers WHERE id = ?",
+        (customer_id,)
+    ).fetchone()
+
+    conn.close()
+
+    # OTP can no longer be reused
+    OTP_STORE.pop(phone, None)
+
+    session["customer_id"] = customer_id
+
+    return jsonify({
+        "success": True,
+        "message": "Account created successfully.",
+        "customer_id": customer_id,
+        "customer": dict(customer)
+    }), 201
+
+
+@app.route("/api/customer/login", methods=["POST"])
+def login_customer():
+    data = request.get_json(silent=True) or {}
+
+    identifier = str(
+        data.get("identifier", data.get("phone", ""))
+    ).strip()
+
+    password = str(data.get("password", ""))
+
+    if not identifier:
+        return jsonify({
+            "error": "Please enter your phone number or username."
+        }), 400
+
+    if not password:
+        return jsonify({
+            "error": "Please enter your password."
+        }), 400
+
+    conn = get_db()
+    cur = conn.cursor()
+
+    # Current customer accounts use phone as the unique login identifier.
+    # Name is also accepted for convenience.
+    customer = cur.execute("""
+        SELECT *
+        FROM customers
+        WHERE phone = ? OR name = ?
+        ORDER BY id DESC
+        LIMIT 1
+    """, (identifier, identifier)).fetchone()
+
+    if not customer:
+        conn.close()
+        return jsonify({
+            "error": "Account not found. Please create an account first."
+        }), 404
+
+    password_hash = customer["password_hash"]
+
+    if not password_hash:
+        conn.close()
+        return jsonify({
+            "error": "This account was created with the old OTP system. Please create a new account or use the old OTP login."
+        }), 400
+
+    if not check_password_hash(password_hash, password):
+        conn.close()
+        return jsonify({
+            "error": "Incorrect password."
+        }), 401
+
+    session["customer_id"] = customer["id"]
+
+    result = {
+        "id": customer["id"],
+        "customer_id": customer["id"],
+        "name": customer["name"],
+        "phone": customer["phone"],
+        "credit_limit": customer["credit_limit"],
+        "credit_used": customer["credit_used"],
+        "created_at": customer["created_at"]
+    }
+
+    conn.close()
+
+    return jsonify({
+        "success": True,
+        "message": "Login successful.",
+        "customer_id": customer["id"],
+        "customer": result
+    }), 200
+
+
+@app.route("/api/customer/logout", methods=["POST"])
+def customer_logout():
+    session.pop("customer_id", None)
+
+    return jsonify({
+        "success": True,
+        "message": "Logged out successfully."
+    }), 200
+
 
 @app.route("/api/customer", methods=["POST"])
 def create_customer():
@@ -1063,6 +1421,46 @@ def record_payment(customer_id):
 # =========================================================
 # START
 # =========================================================
+
+
+# THALASSERY PREMIUM CUSTOMER PAGES
+
+@app.route("/home")
+def premium_home():
+    return send_from_directory(".", "home.html")
+
+@app.route("/menu")
+def premium_menu():
+    return send_from_directory(".", "menu.html")
+
+@app.route("/cart")
+def premium_cart():
+    return send_from_directory(".", "cart.html")
+
+@app.route("/checkout")
+def premium_checkout():
+    return send_from_directory(".", "checkout.html")
+
+@app.route("/orders")
+def premium_orders():
+    return send_from_directory(".", "orders.html")
+
+@app.route("/account")
+def premium_account():
+    return send_from_directory(".", "account.html")
+
+@app.route("/order-success")
+def premium_order_success():
+    return send_from_directory(".", "order-success.html")
+
+@app.route("/premium.css")
+def premium_css():
+    return send_from_directory(".", "premium.css")
+
+@app.route("/premium.js")
+def premium_js():
+    return send_from_directory(".", "premium.js")
+
 
 if __name__ == "__main__":
 
