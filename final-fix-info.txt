@@ -1,0 +1,2757 @@
+===== INDEX =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>THALASSERY</title>
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+
+    <div class="logo">
+      THALASSERY
+      <span>FOOD</span>
+    </div>
+
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#categories">Categories</a>
+      <a href="#menu">Menu</a>
+      <a href="#orders">Orders</a>
+    </nav>
+
+    <button class="cart-top" onclick="scrollToCart()">
+      🛒 Cart
+      <span id="cartCount">0</span>
+    </button>
+
+  </header>
+
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+
+    <div class="hero-content">
+
+      <div class="small-title">
+        AUTHENTIC KERALA FLAVOUR
+      </div>
+
+      <h1>
+        Taste of<br>
+        <span>Thalassery</span>
+      </h1>
+
+      <p>
+        Traditional Kerala flavours,
+        freshly prepared for you.
+      </p>
+
+      <button
+        class="main-btn"
+        onclick="scrollToMenu()"
+      >
+        Explore Menu →
+      </button>
+
+    </div>
+
+    <div class="hero-food">
+
+      <div class="food-circle"></div>
+
+      <img
+        src="https://cdn.phototourl.com/free/2026-09-12-c506127c-6326-49c7-ac1d-e630733667af.jpg"
+        alt="Thalassery food"
+      >
+
+    </div>
+
+  </section>
+
+
+  <!-- CUSTOMER -->
+  <section class="customer-section">
+
+    <div class="customer-card">
+
+      <div>
+        <span class="section-mini">ORDERING AS</span>
+        <h2>Customer</h2>
+      </div>
+
+      <div class="customer-inputs">
+
+        <input
+          id="customerName"
+          type="text"
+          placeholder="Your name"
+        >
+
+        <input
+          id="customerPhone"
+          type="tel"
+          placeholder="Phone number"
+        >
+
+        <button
+          class="green-btn"
+          onclick="saveCustomer()"
+        >
+          Continue
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CATEGORIES -->
+  <section class="categories-section" id="categories">
+
+    <div class="section-heading">
+
+      <span>EXPLORE</span>
+
+      <h2>Our Categories</h2>
+
+    </div>
+
+    <div class="category-row">
+
+      <div class="category">
+        <div class="category-icon">🍛</div>
+        <h3>Biriyani</h3>
+        <p>Authentic taste</p>
+      </div>
+
+      <div class="category">
+        <div class="category-icon">🍗</div>
+        <h3>Chicken</h3>
+        <p>Fresh & tasty</p>
+      </div>
+
+      <div class="category">
+        <div class="category-icon">🥘</div>
+        <h3>Meals</h3>
+        <p>Kerala style</p>
+      </div>
+
+      <div class="category">
+        <div class="category-icon">🌯</div>
+        <h3>Rolls</h3>
+        <p>Quick bites</p>
+      </div>
+
+      <div class="category">
+        <div class="category-icon">🥤</div>
+        <h3>Drinks</h3>
+        <p>Fresh drinks</p>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- MENU -->
+  <section class="menu-section" id="menu">
+
+    <div class="section-heading">
+
+      <span>FRESH FROM KITCHEN</span>
+
+      <h2>Popular Menu</h2>
+
+      <p>
+        Delicious food made with
+        authentic Kerala flavours.
+      </p>
+
+    </div>
+
+    <div
+      id="menuGrid"
+      class="menu-grid"
+    >
+      <div class="loading">
+        Loading menu...
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- CART -->
+  <section
+    class="cart-section"
+    id="cart"
+  >
+
+    <div class="cart-card">
+
+      <div class="cart-header">
+
+        <div>
+          <span>YOUR ORDER</span>
+          <h2>Shopping Cart</h2>
+        </div>
+
+        <div
+          class="cart-total-top"
+          id="cartTotal"
+        >
+          AED 0.00
+        </div>
+
+      </div>
+
+
+      <div
+        id="cartItems"
+        class="cart-items"
+      >
+
+        <div class="empty-cart">
+          Your cart is empty
+        </div>
+
+      </div>
+
+
+      <div class="cart-bottom">
+
+        <div>
+
+          <small>TOTAL</small>
+
+          <strong id="cartTotalBottom">
+            AED 0.00
+          </strong>
+
+        </div>
+
+        <div class="payment-buttons">
+
+          <button
+            class="pay-btn"
+            onclick="placeOrder('pay')"
+          >
+            💵 Pay Now
+          </button>
+
+          <button
+            class="credit-btn"
+            onclick="placeOrder('credit')"
+          >
+            💳 Add to Credit
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CREDIT -->
+  <section class="credit-section">
+
+    <div class="credit-card">
+
+      <div>
+        <span>MY ACCOUNT</span>
+        <h2>Credit Balance</h2>
+      </div>
+
+      <div class="credit-details">
+
+        <div>
+          <small>LIMIT</small>
+          <strong id="creditLimit">
+            AED 0.00
+          </strong>
+        </div>
+
+        <div>
+          <small>USED</small>
+          <strong id="creditUsed">
+            AED 0.00
+          </strong>
+        </div>
+
+        <div class="available">
+          <small>AVAILABLE</small>
+          <strong id="creditAvailable">
+            AED 0.00
+          </strong>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ORDERS -->
+  <section
+    class="orders-section"
+    id="orders"
+  >
+
+    <div class="section-heading">
+
+      <span>YOUR HISTORY</span>
+
+      <h2>My Orders</h2>
+
+    </div>
+
+    <div id="ordersList">
+
+      <div class="empty-orders">
+        Login as customer to see your orders.
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer>
+
+    <div class="footer-logo">
+      THALASSERY
+    </div>
+
+    <p>
+      Authentic Kerala Food
+    </p>
+
+    <div class="footer-line"></div>
+
+    <small>
+      © 2026 THALASSERY. All rights reserved.
+    </small>
+
+  </footer>
+
+
+  <div id="message"></div>
+
+
+  <script src="/script.js"></script>
+
+</body>
+</html>
+===== SCRIPT =====
+let cart = [];
+let customerId =
+  localStorage.getItem("thalasseri_customer_id");
+
+
+// ============================
+// MESSAGE
+// ============================
+
+function showMessage(text) {
+
+  const box =
+    document.getElementById("message");
+
+  box.innerText = text;
+  box.style.display = "block";
+
+  setTimeout(() => {
+    box.style.display = "none";
+  }, 3000);
+}
+
+
+// ============================
+// SCROLL
+// ============================
+
+function scrollToMenu() {
+  document
+    .getElementById("menu")
+    .scrollIntoView({
+      behavior: "smooth"
+    });
+}
+
+function scrollToCart() {
+  document
+    .getElementById("cart")
+    .scrollIntoView({
+      behavior: "smooth"
+    });
+}
+
+
+// ============================
+// MENU
+// ============================
+
+async function loadMenu() {
+
+  const grid =
+    document.getElementById("menuGrid");
+
+  try {
+
+    const response =
+      await fetch("/api/menu");
+
+    const data =
+      await response.json();
+
+    const menu =
+      Array.isArray(data)
+        ? data
+        : data.menu || [];
+
+    if (!menu.length) {
+
+      grid.innerHTML =
+        `<div class="loading">
+          No menu available.
+        </div>`;
+
+      return;
+    }
+
+    grid.innerHTML =
+      menu.map(item => {
+
+        const available =
+          item.available !== false &&
+          item.available !== 0;
+
+        return `
+
+          <div class="menu-card">
+
+            <div class="menu-image">
+
+              ${
+                getFoodEmoji(item.name)
+              }
+
+            </div>
+
+            <div class="menu-info">
+
+              <h3>
+                ${escapeHtml(item.name)}
+              </h3>
+
+              <p>
+                Authentic Thalasseri taste
+              </p>
+
+              <div class="menu-price">
+                AED
+                ${Number(item.price).toFixed(2)}
+              </div>
+
+              ${
+                available
+
+                ?
+
+                `<button
+                  class="menu-add"
+                  onclick='addToCart(${JSON.stringify(item)})'
+                >
+                  + Add to Cart
+                </button>`
+
+                :
+
+                `<div class="sold-out">
+                  Sold Out
+                </div>`
+              }
+
+            </div>
+
+          </div>
+
+        `;
+
+      }).join("");
+
+  } catch (error) {
+
+    console.error(error);
+
+    grid.innerHTML =
+      `<div class="loading">
+        Unable to connect to server.
+      </div>`;
+  }
+}
+
+
+// ============================
+// FOOD EMOJI
+// ============================
+
+function getFoodEmoji(name) {
+
+  const n =
+    String(name).toLowerCase();
+
+  if (n.includes("biriyani")) {
+    return "🍛";
+  }
+
+  if (n.includes("chicken")) {
+    return "🍗";
+  }
+
+  if (n.includes("beef")) {
+    return "🥩";
+  }
+
+  if (n.includes("roll")) {
+    return "🌯";
+  }
+
+  if (n.includes("lime")) {
+    return "🍋";
+  }
+
+  if (n.includes("meal")) {
+    return "🍚";
+  }
+
+  return "🍽️";
+}
+
+
+// ============================
+// CART
+// ============================
+
+function addToCart(item) {
+
+  const existing =
+    cart.find(
+      x => x.id === item.id
+    );
+
+  if (existing) {
+
+    existing.qty++;
+
+  } else {
+
+    cart.push({
+
+      id: item.id,
+
+      name: item.name,
+
+      price:
+        Number(item.price),
+
+      qty: 1
+    });
+  }
+
+  renderCart();
+
+  showMessage(
+    `${item.name} added to cart`
+  );
+}
+
+
+// ============================
+// QUANTITY
+// ============================
+
+function changeQty(id, amount) {
+
+  const item =
+    cart.find(
+      x => x.id === id
+    );
+
+  if (!item) return;
+
+  item.qty += amount;
+
+  if (item.qty <= 0) {
+
+    cart =
+      cart.filter(
+        x => x.id !== id
+      );
+  }
+
+  renderCart();
+}
+
+
+// ============================
+// REMOVE
+// ============================
+
+function removeFromCart(id) {
+
+  cart =
+    cart.filter(
+      x => x.id !== id
+    );
+
+  renderCart();
+}
+
+
+// ============================
+// CART RENDER
+// ============================
+
+function renderCart() {
+
+  const box =
+    document.getElementById(
+      "cartItems"
+    );
+
+  const count =
+    cart.reduce(
+      (sum, item) =>
+        sum + item.qty,
+      0
+    );
+
+  document.getElementById(
+    "cartCount"
+  ).innerText = count;
+
+  if (!cart.length) {
+
+    box.innerHTML =
+      `<div class="empty-cart">
+        Your cart is empty
+      </div>`;
+
+  } else {
+
+    box.innerHTML =
+      cart.map(item => {
+
+        const subtotal =
+          item.price * item.qty;
+
+        return `
+
+          <div class="cart-item">
+
+            <div>
+
+              <strong>
+                ${escapeHtml(item.name)}
+              </strong>
+
+              <br>
+
+              <small>
+                AED
+                ${item.price.toFixed(2)}
+              </small>
+
+            </div>
+
+
+            <div class="qty">
+
+              <button
+                onclick="changeQty(${item.id}, -1)"
+              >
+                −
+              </button>
+
+              <strong>
+                ${item.qty}
+              </strong>
+
+              <button
+                onclick="changeQty(${item.id}, 1)"
+              >
+                +
+              </button>
+
+            </div>
+
+
+            <strong>
+              AED
+              ${subtotal.toFixed(2)}
+            </strong>
+
+
+            <button
+              class="remove-btn"
+              onclick="removeFromCart(${item.id})"
+            >
+              Remove
+            </button>
+
+          </div>
+
+        `;
+
+      }).join("");
+  }
+
+  const total =
+    getCartTotal();
+
+  document.getElementById(
+    "cartTotal"
+  ).innerText =
+    `AED ${total.toFixed(2)}`;
+
+  document.getElementById(
+    "cartTotalBottom"
+  ).innerText =
+    `AED ${total.toFixed(2)}`;
+}
+
+
+// ============================
+// TOTAL
+// ============================
+
+function getCartTotal() {
+
+  return cart.reduce(
+    (total, item) =>
+      total +
+      item.price *
+      item.qty,
+    0
+  );
+}
+
+
+// ============================
+// CUSTOMER
+// ============================
+
+async function saveCustomer() {
+
+  const name =
+    document
+      .getElementById("customerName")
+      .value
+      .trim();
+
+  const phone =
+    document
+      .getElementById("customerPhone")
+      .value
+      .trim();
+
+  if (!name || !phone) {
+
+    showMessage(
+      "Please enter your name and phone."
+    );
+
+    return;
+  }
+
+  try {
+
+    const response =
+      await fetch(
+        "/api/customer",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body: JSON.stringify({
+            name,
+            phone
+          })
+        }
+      );
+
+    const data =
+      await response.json();
+
+    if (!response.ok) {
+
+      showMessage(
+        data.error ||
+        "Customer error"
+      );
+
+      return;
+    }
+
+    customerId =
+      data.customer_id ||
+      data.id ||
+      data.customer?.id;
+
+    if (!customerId) {
+
+      showMessage(
+        "Customer ID missing."
+      );
+
+      return;
+    }
+
+    localStorage.setItem(
+      "thalasseri_customer_id",
+      customerId
+    );
+
+    showMessage(
+      "Customer saved successfully!"
+    );
+
+    await loadCustomerData();
+
+  } catch (error) {
+
+    console.error(error);
+
+    showMessage(
+      "Server connection failed."
+    );
+  }
+}
+
+
+// ============================
+// CUSTOMER DATA
+// ============================
+
+async function loadCustomerData() {
+
+  if (!customerId) return;
+
+  try {
+
+    const response =
+      await fetch(
+        `/api/customer/${customerId}`
+      );
+
+    if (!response.ok) return;
+
+    const data =
+      await response.json();
+
+    const customer =
+      data.customer ||
+      data;
+
+    document.getElementById(
+      "customerName"
+    ).value =
+      customer.name || "";
+
+    document.getElementById(
+      "customerPhone"
+    ).value =
+      customer.phone || "";
+
+    const limit =
+      Number(
+        customer.credit_limit ||
+        customer.creditLimit ||
+        0
+      );
+
+    const used =
+      Number(
+        customer.credit_used ||
+        customer.creditUsed ||
+        0
+      );
+
+    const available =
+      Math.max(
+        0,
+        limit - used
+      );
+
+    document.getElementById(
+      "creditLimit"
+    ).innerText =
+      `AED ${limit.toFixed(2)}`;
+
+    document.getElementById(
+      "creditUsed"
+    ).innerText =
+      `AED ${used.toFixed(2)}`;
+
+    document.getElementById(
+      "creditAvailable"
+    ).innerText =
+      `AED ${available.toFixed(2)}`;
+
+    await loadOrders();
+
+  } catch (error) {
+
+    console.error(error);
+  }
+}
+
+
+// ============================
+// PLACE ORDER
+// ============================
+
+async function placeOrder(
+  paymentMethod
+) {
+
+  if (!customerId) {
+
+    showMessage(
+      "Please enter customer details first."
+    );
+
+    return;
+  }
+
+  if (!cart.length) {
+
+    showMessage(
+      "Your cart is empty."
+    );
+
+    return;
+  }
+
+  const items =
+    cart.map(item => ({
+      menu_item_id: item.id,
+      quantity: item.qty
+    }));
+
+  try {
+
+    const response =
+      await fetch(
+        "/api/orders",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body: JSON.stringify({
+
+            customer_id:
+              Number(customerId),
+
+            items,
+
+            payment_method:
+              paymentMethod
+          })
+        }
+      );
+
+    const data =
+      await response.json();
+
+    if (!response.ok) {
+
+      showMessage(
+        data.error ||
+        "Unable to place order."
+      );
+
+      return;
+    }
+
+    cart = [];
+
+    renderCart();
+
+    showMessage(
+      paymentMethod === "credit"
+        ? "Added to credit successfully!"
+        : "Order placed successfully!"
+    );
+
+    await loadCustomerData();
+
+  } catch (error) {
+
+    console.error(error);
+
+    showMessage(
+      "Server connection failed."
+    );
+  }
+}
+
+
+// ============================
+// ORDERS
+// ============================
+
+async function loadOrders() {
+
+  if (!customerId) return;
+
+  try {
+
+    const response =
+      await fetch(
+        `/api/customer/${customerId}/orders`
+      );
+
+    if (!response.ok) return;
+
+    const data =
+      await response.json();
+
+    const orders =
+      Array.isArray(data)
+        ? data
+        : data.orders || [];
+
+    const box =
+      document.getElementById(
+        "ordersList"
+      );
+
+    if (!orders.length) {
+
+      box.innerHTML =
+        `<div class="empty-orders">
+          No orders yet.
+        </div>`;
+
+      return;
+    }
+
+    box.innerHTML =
+      orders.map(order => {
+
+        return `
+
+          <div class="order-card">
+
+            <strong>
+              Order #${order.id}
+            </strong>
+
+            <br><br>
+
+            Total:
+            <strong>
+              AED
+              ${Number(
+                order.total || 0
+              ).toFixed(2)}
+            </strong>
+
+            <br>
+
+            Payment:
+            ${escapeHtml(
+              order.payment_method ||
+              "-"
+            )}
+
+            <br>
+
+            Status:
+            <span class="order-status">
+              ${escapeHtml(
+                order.status ||
+                "Pending"
+              )}
+            </span>
+
+          </div>
+
+        `;
+
+      }).join("");
+
+  } catch (error) {
+
+    console.error(error);
+  }
+}
+
+
+// ============================
+// SECURITY
+// ============================
+
+function escapeHtml(value) {
+
+  return String(
+    value ?? ""
+  )
+  .replace(
+    /&/g,
+    "&amp;"
+  )
+  .replace(
+    /</g,
+    "&lt;"
+  )
+  .replace(
+    />/g,
+    "&gt;"
+  )
+  .replace(
+    /"/g,
+    "&quot;"
+  )
+  .replace(
+    /'/g,
+    "&#039;"
+  );
+}
+
+
+// ============================
+// START
+// ============================
+
+document.addEventListener(
+  "DOMContentLoaded",
+  async () => {
+
+    await loadMenu();
+
+    if (customerId) {
+
+      await loadCustomerData();
+    }
+
+    renderCart();
+  }
+);
+/* ============================
+   DELIVERY MAP
+============================ */
+
+let deliveryMap = null;
+let deliveryMarker = null;
+let leafletLoaded = false;
+
+function loadLeaflet(callback) {
+
+  if (leafletLoaded) {
+    callback();
+    return;
+  }
+
+  if (!document.getElementById("leaflet-css")) {
+    const css = document.createElement("link");
+    css.id = "leaflet-css";
+    css.rel = "stylesheet";
+    css.href =
+      "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
+    document.head.appendChild(css);
+  }
+
+  if (document.getElementById("leaflet-js")) {
+    document.getElementById("leaflet-js").addEventListener("load", function() {
+      leafletLoaded = true;
+      callback();
+    });
+    return;
+  }
+
+  const script = document.createElement("script");
+  script.id = "leaflet-js";
+  script.src =
+    "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
+
+  script.onload = function() {
+    leafletLoaded = true;
+    callback();
+  };
+
+  document.body.appendChild(script);
+}
+
+function initDeliveryMap() {
+
+  loadLeaflet(function() {
+
+    const mapElement =
+      document.getElementById("deliveryMap");
+
+    if (!mapElement) return;
+
+    if (deliveryMap) {
+      setTimeout(function() {
+        deliveryMap.invalidateSize();
+      }, 300);
+      return;
+    }
+
+    const defaultLat = 25.3463;
+    const defaultLng = 55.4209;
+
+    deliveryMap =
+      L.map("deliveryMap").setView(
+        [defaultLat, defaultLng],
+        13
+      );
+
+    L.tileLayer(
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",
+      {
+        maxZoom: 19,
+        attribution: "Tiles &copy; Esri"
+      }
+    ).addTo(deliveryMap);
+
+    deliveryMap.on("click", function(event) {
+
+      setDeliveryLocation(
+        event.latlng.lat,
+        event.latlng.lng
+      );
+
+    });
+
+    setTimeout(function() {
+      deliveryMap.invalidateSize();
+    }, 500);
+
+  });
+}
+
+function setDeliveryLocation(latitude, longitude) {
+
+  if (!deliveryMap) return;
+
+  if (deliveryMarker) {
+
+    deliveryMarker.setLatLng([
+      latitude,
+      longitude
+    ]);
+
+  } else {
+
+    deliveryMarker =
+      L.marker(
+        [latitude, longitude],
+        {
+          draggable: true
+        }
+      ).addTo(deliveryMap);
+
+    deliveryMarker.on(
+      "dragend",
+      function(event) {
+
+        const position =
+          event.target.getLatLng();
+
+        setDeliveryLocation(
+          position.lat,
+          position.lng
+        );
+
+      }
+    );
+  }
+
+  deliveryMap.setView(
+    [latitude, longitude],
+    17
+  );
+
+  const latInput =
+    document.getElementById("mapLatitude");
+
+  const lngInput =
+    document.getElementById("mapLongitude");
+
+  const locationBox =
+    document.getElementById("selectedLocation");
+
+  if (latInput) {
+    latInput.value = latitude;
+  }
+
+  if (lngInput) {
+    lngInput.value = longitude;
+  }
+
+  if (locationBox) {
+
+    locationBox.innerHTML = `
+      <strong>✅ Location selected</strong><br>
+      ${latitude.toFixed(6)},
+      ${longitude.toFixed(6)}
+    `;
+
+  }
+
+  updateDeliveryAddress();
+}
+
+function updateDeliveryAddress() {
+
+  const buildingNumber =
+    document.getElementById("buildingNumber")?.value.trim() || "";
+
+  const buildingName =
+    document.getElementById("buildingName")?.value.trim() || "";
+
+  const streetArea =
+    document.getElementById("streetArea")?.value.trim() || "";
+
+  const note =
+    document.getElementById("deliveryNote")?.value.trim() || "";
+
+  const lat =
+    document.getElementById("mapLatitude")?.value || "";
+
+  const lng =
+    document.getElementById("mapLongitude")?.value || "";
+
+  const parts = [];
+
+  if (buildingNumber) {
+    parts.push(
+      "Building/House: " + buildingNumber
+    );
+  }
+
+  if (buildingName) {
+    parts.push(
+      "Building: " + buildingName
+    );
+  }
+
+  if (streetArea) {
+    parts.push(
+      "Area/Street: " + streetArea
+    );
+  }
+
+  if (lat && lng) {
+    parts.push(
+      `GPS: ${lat}, ${lng}`
+    );
+  }
+
+  if (note) {
+    parts.push(
+      "Note: " + note
+    );
+  }
+
+  const addressInput =
+    document.getElementById("deliveryAddress");
+
+  if (addressInput) {
+    addressInput.value =
+      parts.join(" | ");
+  }
+}
+
+function openGoogleMapLocation() {
+
+  const lat =
+    document.getElementById("mapLatitude")?.value;
+
+  const lng =
+    document.getElementById("mapLongitude")?.value;
+
+  if (lat && lng) {
+
+    window.open(
+      `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`,
+      "_blank"
+    );
+
+  } else {
+
+    window.open(
+      "https://www.google.com/maps",
+      "_blank"
+    );
+
+  }
+}
+
+function useCurrentLocation() {
+
+  if (!navigator.geolocation) {
+
+    showMessage(
+      "Location is not supported by your browser."
+    );
+
+    return;
+  }
+
+  showMessage(
+    "📍 Getting your current location..."
+  );
+
+  navigator.geolocation.getCurrentPosition(
+
+    function(position) {
+
+      const latitude =
+        position.coords.latitude;
+
+      const longitude =
+        position.coords.longitude;
+
+      initDeliveryMap();
+
+      setTimeout(function() {
+
+        if (deliveryMap) {
+
+          setDeliveryLocation(
+            latitude,
+            longitude
+          );
+
+        }
+
+      }, 1000);
+
+      showMessage(
+        "📍 Current location selected!"
+      );
+
+    },
+
+    function(error) {
+
+      console.error(
+        "Location error:",
+        error
+      );
+
+      showMessage(
+        "Please allow location access in your browser."
+      );
+
+    },
+
+    {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 0
+    }
+  );
+}
+
+document.addEventListener(
+  "input",
+  function(event) {
+
+    if (
+      event.target.id === "buildingNumber" ||
+      event.target.id === "buildingName" ||
+      event.target.id === "streetArea" ||
+      event.target.id === "deliveryNote"
+    ) {
+
+      updateDeliveryAddress();
+
+    }
+
+  }
+);
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function() {
+
+    setTimeout(
+      initDeliveryMap,
+      500
+    );
+
+  }
+);
+
+
+===== STYLE =====
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --green: #176b3a;
+  --dark-green: #0b4324;
+  --light-green: #e9f2eb;
+  --cream: #f8f6ef;
+  --gold: #c9973e;
+  --text: #173321;
+  --muted: #777;
+  --white: #ffffff;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #fff;
+  color: var(--text);
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+  height: 74px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6%;
+  background: rgba(255,255,255,.96);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid #eee;
+}
+
+.logo {
+  color: var(--green);
+  font-size: 23px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.logo span {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  text-align: center;
+}
+
+.navbar nav {
+  display: flex;
+  gap: 30px;
+}
+
+.navbar nav a {
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.navbar nav a:hover {
+  color: var(--green);
+}
+
+.cart-top {
+  border: none;
+  background: var(--green);
+  color: white;
+  padding: 11px 18px;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.cart-top span {
+  background: white;
+  color: var(--green);
+  border-radius: 50%;
+  padding: 2px 6px;
+  margin-left: 4px;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+  min-height: 570px;
+
+  background:
+    radial-gradient(circle at 15% 30%, #eef5ed 0, transparent 28%),
+    radial-gradient(circle at 85% 60%, #edf5ed 0, transparent 30%),
+    #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 55px 7%;
+  overflow: hidden;
+
+  position: relative;
+}
+
+
+/* TEXT SIDE */
+
+.hero-content {
+  width: 48%;
+  position: relative;
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+
+/* IMAGE SIDE */
+
+.hero-food {
+  width: 47%;
+  min-width: 0;
+
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  overflow: visible;
+}
+
+
+/* GREEN BACK CIRCLE */
+
+.hero-food .food-circle {
+  position: absolute;
+
+  width: 430px;
+  height: 430px;
+
+  background: #edf4eb;
+
+  border-radius: 50%;
+
+  z-index: 0;
+}
+
+
+/* HERO IMAGE */
+
+.hero-food img {
+  display: block;
+
+  width: min(500px, 100%);
+  height: 420px;
+
+  object-fit: cover;
+
+  /* SAME CURVE */
+  border-radius: 45% 45% 45% 45%;
+
+  position: relative;
+  z-index: 2;
+
+  mix-blend-mode: multiply;
+
+  /* prevents image from entering text area */
+  max-width: 100%;
+}
+
+
+/* HERO TEXT */
+
+.small-title {
+  color: var(--gold);
+  font-size: 12px;
+  letter-spacing: 4px;
+  font-weight: bold;
+  margin-bottom: 18px;
+}
+
+.hero h1 {
+  font-family: Georgia, serif;
+  font-size: clamp(55px, 7vw, 90px);
+  line-height: .9;
+  color: #172719;
+  position: relative;
+  z-index: 11;
+}
+
+.hero h1 span {
+  color: var(--green);
+  font-style: italic;
+}
+
+.hero p {
+  margin-top: 25px;
+  color: #666;
+  max-width: 420px;
+  line-height: 1.7;
+
+  position: relative;
+  z-index: 11;
+}
+
+.main-btn {
+  margin-top: 28px;
+  background: var(--green);
+  color: white;
+  border: none;
+  padding: 15px 28px;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(23,107,58,.2);
+
+  position: relative;
+  z-index: 11;
+}
+
+.main-btn:hover {
+  background: var(--dark-green);
+}
+
+
+/* =========================
+   CUSTOMER
+========================= */
+
+.customer-section {
+  padding: 20px 8%;
+}
+
+.customer-card {
+  max-width: 1100px;
+  margin: auto;
+  background: var(--light-green);
+  padding: 22px 28px;
+  border-radius: 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 20px;
+}
+
+.section-mini,
+.customer-card span {
+  color: var(--gold);
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+.customer-card h2 {
+  margin-top: 5px;
+}
+
+.customer-inputs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.customer-inputs input {
+  width: 170px;
+  padding: 12px;
+  border: 1px solid #cbd8ce;
+  border-radius: 9px;
+  outline: none;
+}
+
+.green-btn {
+  border: none;
+  background: var(--green);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 9px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+/* =========================
+   SECTIONS
+========================= */
+
+section {
+  scroll-margin-top: 90px;
+}
+
+.section-heading {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.section-heading span {
+  color: var(--gold);
+  font-size: 11px;
+  letter-spacing: 3px;
+  font-weight: bold;
+}
+
+.section-heading h2 {
+  font-family: Georgia, serif;
+  font-size: 40px;
+  margin-top: 7px;
+  color: #173321;
+}
+
+.section-heading p {
+  color: #777;
+  margin-top: 10px;
+}
+
+
+/* =========================
+   CATEGORIES
+========================= */
+
+.categories-section {
+  padding: 65px 7%;
+  background: #fff;
+}
+
+.category-row {
+  max-width: 1000px;
+  margin: auto;
+
+  display: flex;
+  justify-content: center;
+  gap: 35px;
+  flex-wrap: wrap;
+}
+
+.category {
+  text-align: center;
+  width: 120px;
+}
+
+.category-icon {
+  width: 85px;
+  height: 85px;
+  margin: auto;
+
+  border-radius: 50%;
+  background: var(--light-green);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 38px;
+
+  border: 4px solid white;
+  box-shadow: 0 5px 20px rgba(0,0,0,.08);
+}
+
+.category h3 {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.category p {
+  margin-top: 4px;
+  color: #999;
+  font-size: 11px;
+}
+
+
+/* =========================
+   MENU
+========================= */
+
+.menu-section {
+  background: var(--cream);
+  padding: 75px 7%;
+}
+
+.menu-grid {
+  max-width: 1100px;
+  margin: auto;
+
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(240px, 1fr));
+
+  gap: 25px;
+}
+
+.menu-card {
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+
+  box-shadow: 0 8px 25px rgba(0,0,0,.07);
+
+  transition: .25s;
+  border: 1px solid #eee;
+}
+
+.menu-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 30px rgba(0,0,0,.1);
+}
+
+.menu-image {
+  height: 170px;
+  background: var(--light-green);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 75px;
+}
+
+.menu-info {
+  padding: 20px;
+}
+
+.menu-info h3 {
+  color: var(--green);
+  font-size: 19px;
+}
+
+.menu-info p {
+  color: #888;
+  font-size: 12px;
+  margin-top: 7px;
+}
+
+.menu-price {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 15px 0;
+}
+
+.menu-add {
+  width: 100%;
+  border: none;
+  background: var(--green);
+  color: white;
+  padding: 12px;
+  border-radius: 9px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.menu-add:hover {
+  background: var(--dark-green);
+}
+
+.sold-out {
+  color: #b3261e;
+  font-weight: bold;
+}
+
+
+/* =========================
+   CART
+========================= */
+
+.cart-section {
+  padding: 70px 7%;
+  background: white;
+}
+
+.cart-card {
+  max-width: 1000px;
+  margin: auto;
+
+  background: var(--light-green);
+
+  border-radius: 25px;
+  padding: 30px;
+}
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-header span,
+.credit-card span {
+  color: var(--gold);
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+.cart-header h2 {
+  margin-top: 6px;
+}
+
+.cart-total-top {
+  color: var(--green);
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.cart-items {
+  margin-top: 20px;
+}
+
+.cart-item {
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+}
+
+.qty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.qty button {
+  border: none;
+  background: var(--light-green);
+  color: var(--green);
+
+  width: 30px;
+  height: 30px;
+
+  border-radius: 50%;
+
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.remove-btn {
+  border: none;
+  background: transparent;
+  color: #b3261e;
+  cursor: pointer;
+}
+
+.cart-bottom {
+  border-top: 1px solid #cbd8ce;
+
+  margin-top: 20px;
+  padding-top: 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-bottom small {
+  display: block;
+  color: #888;
+}
+
+.cart-bottom strong {
+  display: block;
+  color: var(--green);
+  font-size: 25px;
+  margin-top: 5px;
+}
+
+.payment-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.pay-btn,
+.credit-btn {
+  border: none;
+  padding: 13px 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.pay-btn {
+  background: var(--green);
+  color: white;
+}
+
+.credit-btn {
+  background: var(--gold);
+  color: white;
+}
+
+
+/* =========================
+   CREDIT
+========================= */
+
+.credit-section {
+  padding: 30px 7% 70px;
+}
+
+.credit-card {
+  max-width: 1000px;
+  margin: auto;
+
+  background: var(--dark-green);
+  color: white;
+
+  border-radius: 25px;
+  padding: 30px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.credit-card h2 {
+  margin-top: 6px;
+}
+
+.credit-details {
+  display: flex;
+  gap: 45px;
+}
+
+.credit-details small {
+  display: block;
+  opacity: .65;
+  font-size: 10px;
+}
+
+.credit-details strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 20px;
+}
+
+.credit-details .available strong {
+  color: #b8e7c5;
+}
+
+
+/* =========================
+   ORDERS
+========================= */
+
+.orders-section {
+  padding: 70px 7%;
+  background: var(--cream);
+}
+
+.order-card {
+  max-width: 1000px;
+  margin: 10px auto;
+
+  background: white;
+
+  padding: 18px 20px;
+
+  border-radius: 12px;
+  border-left: 5px solid var(--green);
+
+  box-shadow: 0 3px 12px rgba(0,0,0,.05);
+}
+
+.order-status {
+  color: var(--green);
+  font-weight: bold;
+}
+
+.empty-cart,
+.empty-orders,
+.loading {
+  text-align: center;
+  padding: 30px;
+  color: #888;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+  background: var(--dark-green);
+  color: white;
+
+  text-align: center;
+
+  padding: 45px 20px;
+}
+
+.footer-logo {
+  font-size: 25px;
+  letter-spacing: 4px;
+  font-weight: bold;
+}
+
+footer p {
+  margin-top: 8px;
+  opacity: .7;
+}
+
+.footer-line {
+  height: 1px;
+  background: rgba(255,255,255,.15);
+
+  max-width: 400px;
+  margin: 25px auto;
+}
+
+footer small {
+  opacity: .5;
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+#message {
+  position: fixed;
+
+  bottom: 25px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  background: var(--dark-green);
+  color: white;
+
+  padding: 14px 22px;
+
+  border-radius: 30px;
+
+  display: none;
+
+  z-index: 999;
+
+  box-shadow: 0 8px 25px rgba(0,0,0,.2);
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:800px) {
+
+  .navbar {
+    padding: 0 20px;
+  }
+
+  .navbar nav {
+    display: none;
+  }
+
+  .hero {
+    min-height: auto;
+
+    flex-direction: column;
+
+    text-align: center;
+
+    padding: 55px 20px;
+
+    overflow: hidden;
+  }
+
+  .hero-content {
+    width: 100%;
+
+    position: relative;
+    z-index: 20;
+  }
+
+  .hero-food {
+    width: 100%;
+
+    margin-top: 40px;
+
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-food img {
+    width: 90%;
+    max-width: 500px;
+    height: 300px;
+
+    object-fit: cover;
+
+    border-radius: 45% 45% 45% 45%;
+  }
+
+  .hero-food .food-circle {
+    width: 300px;
+    height: 300px;
+  }
+
+  .customer-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .customer-inputs {
+    flex-direction: column;
+  }
+
+  .customer-inputs input {
+    width: 100%;
+  }
+
+  .category-row {
+    gap: 20px;
+  }
+
+  .cart-bottom {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+  }
+
+  .payment-buttons {
+    flex-direction: column;
+  }
+
+  .credit-card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 25px;
+  }
+
+  .credit-details {
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .cart-item {
+    flex-wrap: wrap;
+  }
+}
+
+
+/* =========================
+   EXTRA HERO PROTECTION
+========================= */
+
+/* Never allow hero image to cover hero text */
+
+.hero-content,
+.hero-content * {
+  isolation: isolate;
+}
+
+.hero-food {
+  isolation: isolate;
+}
+
+/* Keeps image strictly inside its own side */
+.hero-food img {
+  pointer-events: none;
+}
+
+
+/* =========================
+   SMALL LAPTOP FIX
+========================= */
+
+@media (min-width: 801px) and (max-width: 1100px) {
+
+  .hero {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  .hero-content {
+    width: 50%;
+  }
+
+  .hero-food {
+    width: 45%;
+  }
+
+  .hero-food img {
+    width: 100%;
+    height: 380px;
+  }
+
+  .hero-food .food-circle {
+    width: 350px;
+    height: 350px;
+  }
+}
+===== ADMIN ORDERS =====
+    document.getElementById("statCredit").textContent =
+      formatAED(
+        data.outstanding_credit ??
+        data.credit ??
+        0
+      );
+
+    await loadOrders(true);
+
+  }catch(err){
+
+    showToast(err.message);
+
+  }
+
+}
+
+
+/* =========================
+   ORDERS
+========================= */
+
+async function loadOrders(silent=false){
+
+  try{
+
+    const data =
+      await api("/api/admin/orders");
+
+    currentOrders =
+      Array.isArray(data)
+        ? data
+        : (data.orders || []);
+
+    renderOrders();
+
+    renderRecentOrders();
+
+  }catch(err){
+
+    if(!silent){
+      showToast(err.message);
+    }
+
+  }
+
+}
+
+
+function renderOrders(){
+
+  const tbody =
+    document.getElementById("ordersTable");
+
+  if(!currentOrders.length){
+
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="7">
+          <div class="empty">
+            No orders found.
+          </div>
+        </td>
+      </tr>
+    `;
+
+    return;
+  }
+
+  tbody.innerHTML =
+    currentOrders.map(order=>{
+
+      const items =
+        getOrderItemsText(order);
+
+      const hasLocation =
+        order.latitude !== null &&
+        order.latitude !== undefined &&
+        order.longitude !== null &&
+        order.longitude !== undefined;
+
+      return `
+        <tr>
+
+          <td>
+            <strong>#${order.id ?? "-"}</strong>
+            <div class="customer-phone">
+              ${formatDate(order.created_at)}
+            </div>
+          </td>
+
+          <td>
+            <div class="customer-name">
+              ${escapeHtml(
+                order.customer_name ||
+                order.name ||
+                "Customer"
+              )}
+            </div>
+
+            <div class="customer-phone">
+              ${escapeHtml(
+                order.phone ||
+                order.customer_phone ||
+                order.contact_number ||
+                ""
+              )}
+            </div>
+          </td>
+
+          <td>
+            ${escapeHtml(items)}
+          </td>
+
+          <td class="money">
+            ${formatAED(order.total)}
+          </td>
+
+          <td>
+            <span class="badge">
+              ${escapeHtml(
+                String(
+                  order.payment_method ||
+                  order.payment ||
+                  "Pay"
+                ).toUpperCase()
+              )}
+            </span>
+          </td>
+
+          <td>
+            ${statusSelect(order)}
+          </td>
+
+          <td>
+
+            <div style="
+              display:flex;
+              align-items:center;
+              justify-content:center;
+              gap:8px;
+              flex-wrap:nowrap;
+              white-space:nowrap;
+            ">
+
+              <button
+                type="button"
+                class="btn btn-light"
+                style="
+                  margin:0 !important;
+                  height:36px;
+                  min-width:72px;
+                  display:inline-flex;
+                  align-items:center;
+                  justify-content:center;
+                "
+                onclick="viewOrder(${order.id})">
+                View
+              </button>
+
+              ${
+                hasLocation
+                ? `
+                  <button
+                    type="button"
+                    class="btn btn-light"
+                    style="
+                      margin:0 !important;
+                      height:36px;
+                      min-width:100px;
+                      display:inline-flex;
+                      align-items:center;
+                      justify-content:center;
+                      border:1px solid #d7e4da;
+                      border-radius:10px;
+                      background:#f8fbf8;
+                      color:#176b3a;
+                      font-weight:700;
+                    "
+                    onclick="openOrderLocation(${order.latitude}, ${order.longitude})">
+                    📍 Location
+                  </button>
+                `
+                : ""
+              }
+
+            </div>
+
+          </td>
+
+        </tr>
+      `;
+
+    }).join("");
+
+}
+
+function renderRecentOrders(){
+
+  const tbody =
+    document.getElementById("recentOrders");
+
+  const orders =
+    currentOrders.slice(0,8);
+
+  if(!orders.length){
+
+    tbody.innerHTML=`
+      <tr>
+        <td colspan="6">
+          <div class="empty">
+            No recent orders.
+          </div>
+        </td>
+      </tr>
+    `;
+
+    return;
+  }
+
+  tbody.innerHTML =
+    orders.map(order=>{
+
+      return `
+        <tr>
+
+          <td>
+            <strong>#${order.id}</strong>
+          </td>
+
+          <td>
+            ${escapeHtml(
+              order.customer_name ||
+              order.name ||
+              "Customer"
+            )}
+          </td>
+
+          <td class="money">
+            ${formatAED(order.total)}
+          </td>
+
+          <td>
+            <span class="badge">
+              ${escapeHtml(
+                String(
+                  order.payment_method ||
+                  order.payment ||
+                  "Pay"
+                ).toUpperCase()
+              )}
+            </span>
+          </td>
+
+          <td>
+            <span class="badge">
+              ${escapeHtml(order.status || "Pending")}
+            </span>
+          </td>
+
+          <td>
+            <div style="
+              display:flex;
+              flex-direction:row;
+              align-items:center;
+              justify-content:center;
+              gap:8px;
+              flex-wrap:nowrap;
+              white-space:nowrap;
+            ">
+
+              <button
+                type="button"
+                class="btn btn-light"
+                onclick="viewOrder(${order.id})"
+                style="
+                  margin:0 !important;
+                  height:36px;
+                  min-width:72px;
+                  display:inline-flex;
+                  align-items:center;
+                  justify-content:center;
+                ">
+                View
+              </button>
+
+              ${
+                order.latitude !== null &&
+                order.latitude !== undefined &&
+                order.longitude !== null &&
+                order.longitude !== undefined
+                ? `
+                  <button
+                    type="button"
+                    class="btn btn-light"
+                    onclick="openOrderLocation(${order.latitude}, ${order.longitude})"
+                    style="
+                      margin:0 !important;
+                      height:36px;
+                      min-width:100px;
+                      display:inline-flex;
+                      align-items:center;
+                      justify-content:center;
+                      white-space:nowrap;
+                      border:1px solid #d7e4da;
+                      border-radius:10px;
+                      background:#f8fbf8;
+                      color:#176b3a;
+                      font-weight:700;
+                    ">
+                    📍 Location
+                  </button>
+                `
+                : ""
+              }
+
+            </div>
+          </td>
+
+        </tr>
+      `;
+
+    }).join("");
+
+}
+
+
+function statusSelect(order){
+
+  const statuses = [
+    "Pending",
