@@ -1969,3 +1969,112 @@ window.addEventListener("storage", () => {
   thalasseryApplyLoginGate();
 });
 
+
+/* =========================================================
+   THALASSERY SCROLL BANANA GROWTH
+   Scroll position controls plant growth
+   ========================================================= */
+
+(function () {
+
+  function initScrollBananaPlant() {
+
+    const plant =
+      document.getElementById("scrollBananaPlant");
+
+    if (!plant) return;
+
+    let ticking = false;
+
+    function updateBananaGrowth() {
+
+      const maxScroll =
+        Math.max(
+          1,
+          document.documentElement.scrollHeight -
+          window.innerHeight
+        );
+
+      const scroll =
+        window.scrollY || window.pageYOffset || 0;
+
+      const progress =
+        Math.min(
+          1,
+          Math.max(
+            0,
+            scroll / maxScroll
+          )
+        );
+
+      /*
+       * Small amount of growth even at the top.
+       * Full plant + banana bunch at bottom.
+       */
+      const growth =
+        Math.min(
+          1,
+          0.06 + (progress * 0.94)
+        );
+
+      plant.style.setProperty(
+        "--banana-growth",
+        growth.toFixed(3)
+      );
+
+      let stage = 0;
+
+      if (progress < 0.12) {
+        stage = 0;
+      } else if (progress < 0.35) {
+        stage = 1;
+      } else if (progress < 0.58) {
+        stage = 2;
+      } else if (progress < 0.80) {
+        stage = 3;
+      } else {
+        stage = 4;
+      }
+
+      plant.dataset.stage = String(stage);
+
+      ticking = false;
+    }
+
+    function requestBananaUpdate() {
+
+      if (!ticking) {
+        window.requestAnimationFrame(
+          updateBananaGrowth
+        );
+
+        ticking = true;
+      }
+    }
+
+    window.addEventListener(
+      "scroll",
+      requestBananaUpdate,
+      { passive: true }
+    );
+
+    window.addEventListener(
+      "resize",
+      requestBananaUpdate
+    );
+
+    updateBananaGrowth();
+  }
+
+  if (
+    document.readyState === "loading"
+  ) {
+    document.addEventListener(
+      "DOMContentLoaded",
+      initScrollBananaPlant
+    );
+  } else {
+    initScrollBananaPlant();
+  }
+
+})();

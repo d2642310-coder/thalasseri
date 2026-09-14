@@ -3053,3 +3053,339 @@ body.customer-logged-out .shopping-content {
     transform: translateY(0) scale(1);
   }
 }
+
+/* =========================================================
+   THALASSERY SCROLL BANANA PLANT
+   Side decorative growth animation
+   ========================================================= */
+
+#scrollBananaPlant {
+  --banana-growth: 0;
+  position: fixed;
+  right: clamp(12px, 3vw, 48px);
+  bottom: 0;
+  width: clamp(90px, 11vw, 165px);
+  height: min(72vh, 720px);
+  z-index: 3;
+  pointer-events: none;
+  overflow: visible;
+  transform-origin: bottom center;
+  opacity: .96;
+  transition: opacity .3s ease;
+}
+
+.banana-plant-ground {
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  width: 80px;
+  height: 18px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse,
+    rgba(55,90,38,.28),
+    transparent 70%
+  );
+  filter: blur(2px);
+}
+
+.banana-stem {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  width: 22px;
+  height: calc(45px + (var(--banana-growth) * 430px));
+  transform: translateX(-50%);
+  transform-origin: bottom center;
+  border-radius: 48% 52% 18% 18%;
+  background: linear-gradient(
+    90deg,
+    #315d28 0%,
+    #5f8e3b 28%,
+    #88ad4b 50%,
+    #4f7c32 72%,
+    #294e25 100%
+  );
+  box-shadow:
+    inset 3px 0 rgba(255,255,255,.16),
+    inset -4px 0 rgba(0,0,0,.15),
+    0 8px 18px rgba(27,67,29,.18);
+  transition: height .18s linear;
+}
+
+.banana-stem::before,
+.banana-stem::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 125%;
+  height: 4px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: rgba(39,77,30,.22);
+}
+
+.banana-stem::before {
+  top: 28%;
+}
+
+.banana-stem::after {
+  top: 62%;
+}
+
+.banana-leaf {
+  position: absolute;
+  width: clamp(75px, 8vw, 130px);
+  height: clamp(22px, 2.5vw, 38px);
+  border-radius: 100% 0 100% 0;
+  background: linear-gradient(
+    90deg,
+    #1c642f,
+    #3d963e 45%,
+    #79ad45
+  );
+  transform-origin: 0 50%;
+  opacity: 0;
+  filter: drop-shadow(0 5px 7px rgba(24,72,30,.18));
+  transition:
+    opacity .25s ease,
+    transform .2s linear;
+}
+
+.banana-leaf::after {
+  content: "";
+  position: absolute;
+  left: 7%;
+  top: 48%;
+  width: 88%;
+  height: 2px;
+  border-radius: 50%;
+  background: rgba(225,241,170,.55);
+}
+
+.leaf-1 {
+  left: 50%;
+  bottom: 48%;
+  transform: rotate(-25deg) scale(.25);
+}
+
+.leaf-2 {
+  left: 48%;
+  bottom: 58%;
+  transform: rotate(28deg) scale(.25);
+}
+
+.leaf-3 {
+  left: 50%;
+  bottom: 68%;
+  transform: rotate(-35deg) scale(.25);
+}
+
+.leaf-4 {
+  left: 46%;
+  bottom: 76%;
+  transform: rotate(32deg) scale(.25);
+}
+
+.leaf-5 {
+  left: 50%;
+  bottom: 84%;
+  transform: rotate(-18deg) scale(.25);
+}
+
+.leaf-6 {
+  left: 48%;
+  bottom: 91%;
+  transform: rotate(17deg) scale(.25);
+}
+
+/* Leaf growth stages */
+
+#scrollBananaPlant[data-stage="1"] .leaf-1 {
+  opacity: .85;
+  transform: rotate(-25deg) scale(.65);
+}
+
+#scrollBananaPlant[data-stage="2"] .leaf-1,
+#scrollBananaPlant[data-stage="2"] .leaf-2 {
+  opacity: .9;
+}
+
+#scrollBananaPlant[data-stage="2"] .leaf-1 {
+  transform: rotate(-25deg) scale(.82);
+}
+
+#scrollBananaPlant[data-stage="2"] .leaf-2 {
+  transform: rotate(28deg) scale(.78);
+}
+
+#scrollBananaPlant[data-stage="3"] .leaf-1,
+#scrollBananaPlant[data-stage="3"] .leaf-2,
+#scrollBananaPlant[data-stage="3"] .leaf-3,
+#scrollBananaPlant[data-stage="3"] .leaf-4 {
+  opacity: .94;
+}
+
+#scrollBananaPlant[data-stage="3"] .leaf-1 {
+  transform: rotate(-25deg) scale(.95);
+}
+
+#scrollBananaPlant[data-stage="3"] .leaf-2 {
+  transform: rotate(28deg) scale(.9);
+}
+
+#scrollBananaPlant[data-stage="3"] .leaf-3 {
+  transform: rotate(-35deg) scale(.88);
+}
+
+#scrollBananaPlant[data-stage="3"] .leaf-4 {
+  transform: rotate(32deg) scale(.84);
+}
+
+#scrollBananaPlant[data-stage="4"] .banana-leaf {
+  opacity: .96;
+}
+
+#scrollBananaPlant[data-stage="4"] .leaf-1 {
+  transform: rotate(-25deg) scale(1);
+}
+
+#scrollBananaPlant[data-stage="4"] .leaf-2 {
+  transform: rotate(28deg) scale(.96);
+}
+
+#scrollBananaPlant[data-stage="4"] .leaf-3 {
+  transform: rotate(-35deg) scale(.94);
+}
+
+#scrollBananaPlant[data-stage="4"] .leaf-4 {
+  transform: rotate(32deg) scale(.9);
+}
+
+#scrollBananaPlant[data-stage="4"] .leaf-5 {
+  opacity: .92;
+  transform: rotate(-18deg) scale(.84);
+}
+
+#scrollBananaPlant[data-stage="4"] .leaf-6 {
+  opacity: .9;
+  transform: rotate(17deg) scale(.8);
+}
+
+/* Banana bunch */
+
+.banana-bunch {
+  position: absolute;
+  left: 50%;
+  top: -2px;
+  width: 55px;
+  height: 100px;
+  transform:
+    translateX(-50%)
+    scale(calc(.15 + (var(--banana-growth) * .85)));
+  transform-origin: top center;
+  opacity: calc(
+    var(--banana-growth) * var(--banana-growth) * var(--banana-growth)
+  );
+  transition:
+    transform .2s linear,
+    opacity .2s linear;
+}
+
+.banana-bunch span {
+  position: absolute;
+  width: 14px;
+  height: 34px;
+  border-radius: 60% 45% 60% 45%;
+  background: linear-gradient(
+    90deg,
+    #c89d20,
+    #f4c832 50%,
+    #dba91f
+  );
+  box-shadow:
+    inset 2px 0 rgba(255,255,255,.28),
+    0 2px 5px rgba(70,55,10,.2);
+}
+
+.banana-bunch span:nth-child(1) {
+  left: 21px;
+  top: 8px;
+  transform: rotate(5deg);
+}
+
+.banana-bunch span:nth-child(2) {
+  left: 7px;
+  top: 25px;
+  transform: rotate(-24deg);
+}
+
+.banana-bunch span:nth-child(3) {
+  left: 22px;
+  top: 30px;
+  transform: rotate(3deg);
+}
+
+.banana-bunch span:nth-child(4) {
+  left: 37px;
+  top: 25px;
+  transform: rotate(25deg);
+}
+
+.banana-bunch span:nth-child(5) {
+  left: 13px;
+  top: 52px;
+  transform: rotate(-18deg);
+}
+
+.banana-bunch span:nth-child(6) {
+  left: 29px;
+  top: 52px;
+  transform: rotate(18deg);
+}
+
+/* Don't show decoration on login/auth gate */
+
+body.customer-logged-out #scrollBananaPlant {
+  display: none !important;
+}
+
+/* Mobile: keep it subtle and out of the content */
+
+@media (max-width: 700px) {
+  #scrollBananaPlant {
+    right: 2px;
+    width: 72px;
+    height: 48vh;
+    opacity: .72;
+    z-index: 1;
+  }
+
+  .banana-stem {
+    width: 13px;
+  }
+
+  .banana-leaf {
+    width: 72px;
+    height: 20px;
+  }
+
+  .banana-bunch {
+    transform:
+      translateX(-50%)
+      scale(calc(.1 + (var(--banana-growth) * .62)));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #scrollBananaPlant {
+    transition: none;
+  }
+
+  .banana-stem,
+  .banana-leaf,
+  .banana-bunch {
+    transition: none;
+  }
+}
