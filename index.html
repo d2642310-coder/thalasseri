@@ -18,18 +18,18 @@
         </div>
 
         <nav class="main-nav" aria-label="Main navigation">
-          <a href="#">Home</a>
-          <a href="#">Menus</a>
-          <a href="#">Services</a>
-          <a href="#">About</a>
-          <a href="#">Contact</a>
+          <a href="#home">Home</a>
+          <a href="#menu">Menus</a>
+          <a href="#services">Services</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
         </nav>
 
         <button class="header-button" type="button">Booking</button>
       </header>
 
       <main class="page-body">
-        <section class="hero-section">
+        <section class="hero-section" id="home">
           <div class="hero-copy">
             <p class="eyebrow">Home Chef Super</p>
             <h1>Best Catering <span>Website</span></h1>
@@ -40,7 +40,7 @@
             </p>
 
             <div class="cta-row">
-              <button class="primary-btn" type="button">Get a Quote</button>
+              <button class="primary-btn" type="button" onclick="scrollToMenu()">Get a Quote</button>
               <button class="secondary-btn" type="button">Explore More</button>
             </div>
           </div>
@@ -58,7 +58,68 @@
           </div>
         </section>
 
-        <section class="feature-section" aria-label="Features">
+        <section class="customer-section" aria-label="Customer login and registration">
+          <div class="customer-card">
+            <div class="customer-header">
+              <span class="section-mini">ORDERING AS</span>
+              <h2>Customer</h2>
+            </div>
+
+            <div class="customer-auth-box">
+              <div class="auth-tabs">
+                <button type="button" id="createAccountTab" class="auth-tab active" onclick="showCreateAccount()">
+                  Create Account
+                </button>
+                <button type="button" id="loginTab" class="auth-tab" onclick="showCustomerLogin()">
+                  Login
+                </button>
+              </div>
+
+              <div id="createAccountBox" class="auth-form">
+                <div class="auth-heading">Create your THALASSERY account</div>
+                <p class="auth-subheading">Create your account with phone verification.</p>
+
+                <input id="customerName" type="text" placeholder="Your full name" autocomplete="name" />
+                <input id="customerPhone" type="tel" placeholder="Phone number" autocomplete="tel" />
+                <input id="customerPassword" type="password" placeholder="Create password (6+ characters)" autocomplete="new-password" />
+                <input id="customerConfirmPassword" type="password" placeholder="Confirm password" autocomplete="new-password" />
+
+                <button class="green-btn auth-main-btn" type="button" onclick="requestCustomerOTP()">
+                  Get OTP
+                </button>
+              </div>
+
+              <div id="loginBox" class="auth-form" style="display:none;">
+                <div class="auth-heading">Welcome back</div>
+                <p class="auth-subheading">Login using your phone number or account name.</p>
+
+                <input id="loginIdentifier" type="text" placeholder="Phone number or name" autocomplete="username" />
+                <input id="loginPassword" type="password" placeholder="Password" autocomplete="current-password" />
+
+                <button class="green-btn auth-main-btn" type="button" onclick="loginCustomerWithPassword()">
+                  Login
+                </button>
+              </div>
+
+              <div id="otpBox" class="otp-box" style="display:none;">
+                <div class="otp-title">🔐 Verify your phone</div>
+                <p class="otp-subtitle">Enter the 6-digit OTP shown in the server terminal to verify your phone.</p>
+
+                <input id="customerOTP" type="text" inputmode="numeric" maxlength="6" placeholder="Enter 6-digit OTP" autocomplete="one-time-code" />
+
+                <button class="green-btn auth-main-btn" type="button" onclick="verifyCustomerOTP()">
+                  Verify & Create Account
+                </button>
+
+                <button class="otp-resend" type="button" onclick="resendCustomerOTP()">
+                  Resend OTP
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="feature-section" id="services" aria-label="Features">
           <div class="feature-card">
             <div class="feature-icon green">✦</div>
             <h3>While Due with</h3>
@@ -108,7 +169,7 @@
           </div>
         </section>
 
-        <section class="feedback-section">
+        <section class="feedback-section" id="about">
           <h2>Taly Feedback</h2>
 
           <div class="feedback-grid">
@@ -150,7 +211,7 @@
           </div>
         </section>
 
-        <section class="story-section">
+        <section class="story-section" id="menu">
           <div class="story-copy">
             <div class="mini-tag">More about us</div>
             <h2>Fivius will affigen on parti-step lioc.</h2>
@@ -158,7 +219,7 @@
               From curated family menus to elegant event spreads, we create dining
               experiences that feel effortless, healthy, and memorable.
             </p>
-            <button class="primary-btn small" type="button">Learn More</button>
+            <button class="primary-btn small" type="button" onclick="scrollToMenu()">Learn More</button>
           </div>
 
           <div class="story-visual">
@@ -168,9 +229,127 @@
             />
           </div>
         </section>
+
+        <section class="menu-section" id="menu-list">
+          <div class="section-heading">
+            <span>FRESH FROM KITCHEN</span>
+            <h2>Popular Menu</h2>
+            <p>Delicious food made with authentic Kerala flavours.</p>
+          </div>
+
+          <div id="menuGrid" class="menu-grid">
+            <div class="loading">Loading menu...</div>
+          </div>
+        </section>
+
+        <section class="cart-section" id="cart">
+          <div class="cart-card">
+            <div class="cart-header">
+              <div>
+                <span>YOUR ORDER</span>
+                <h2>Shopping Cart</h2>
+              </div>
+              <div class="cart-total-top" id="cartTotal">AED 0.00</div>
+            </div>
+
+            <div id="cartItems" class="cart-items">
+              <div class="empty-cart">Your cart is empty</div>
+            </div>
+
+            <div class="cart-bottom">
+              <div>
+                <small>TOTAL</small>
+                <strong id="cartTotalBottom">AED 0.00</strong>
+              </div>
+
+              <div class="delivery-box">
+                <div class="delivery-user-info">
+                  <div class="delivery-field">
+                    <label>Building / House Number</label>
+                    <input id="buildingNumber" type="text" placeholder="e.g. Villa 12 / Flat 304" />
+                  </div>
+
+                  <div class="delivery-field">
+                    <label>Building Name</label>
+                    <input id="buildingName" type="text" placeholder="Building / Villa name" />
+                  </div>
+                </div>
+
+                <div class="delivery-field">
+                  <label>Street / Area</label>
+                  <input id="streetArea" type="text" placeholder="Street, area or landmark" />
+                </div>
+
+                <div class="delivery-map-box">
+                  <div class="delivery-map-title">
+                    <span>📍 Delivery Location</span>
+                    <small>Tap the map to select your exact location</small>
+                  </div>
+                  <div id="deliveryMap" class="delivery-map"></div>
+
+                  <div class="map-actions">
+                    <button type="button" class="map-location-btn" onclick="openGoogleMapLocation()">📍 Open Google Maps</button>
+                    <button type="button" class="current-location-btn" onclick="useCurrentLocation()">🎯 Use My Current Location</button>
+                  </div>
+
+                  <div id="selectedLocation" class="selected-location">📍 Tap the map or use current location</div>
+                  <input id="mapLatitude" type="hidden" />
+                  <input id="mapLongitude" type="hidden" />
+                </div>
+
+                <div class="delivery-field">
+                  <label>Delivery Note <span>(Optional)</span></label>
+                  <textarea id="deliveryNote" rows="2" placeholder="Example: Call me when you reach the building"></textarea>
+                </div>
+
+                <input id="deliveryAddress" type="hidden" />
+                <div class="order-time-note">⏰ Order time will be recorded automatically</div>
+
+                <div class="payment-buttons">
+                  <button class="pay-btn" onclick="placeOrder('pay')">💵 Pay Now</button>
+                  <button class="credit-btn" onclick="placeOrder('credit')">💳 Add to Credit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="credit-section">
+          <div class="credit-card">
+            <div>
+              <span>MY ACCOUNT</span>
+              <h2>Credit Balance</h2>
+            </div>
+
+            <div class="credit-details">
+              <div>
+                <small>LIMIT</small>
+                <strong id="creditLimit">AED 0.00</strong>
+              </div>
+              <div>
+                <small>USED</small>
+                <strong id="creditUsed">AED 0.00</strong>
+              </div>
+              <div class="available">
+                <small>AVAILABLE</small>
+                <strong id="creditAvailable">AED 0.00</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="orders-section" id="orders">
+          <div class="section-heading">
+            <span>YOUR HISTORY</span>
+            <h2>My Orders</h2>
+          </div>
+          <div id="ordersList">
+            <div class="empty-orders">Login as customer to see your orders.</div>
+          </div>
+        </section>
       </main>
 
-      <footer class="site-footer">
+      <footer class="site-footer" id="contact">
         <div class="footer-inner">
           <div class="footer-links">
             <span>☎ 202-000-000</span>
