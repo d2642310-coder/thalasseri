@@ -3,266 +3,190 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>THALASSERY</title>
+    <title>Gadly Catering</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
-    <header class="navbar">
-      <div class="logo">FOODEAT</div>
-
-      <nav class="desktop-nav">
-        <a href="#home">HOME</a>
-        <a href="#menu">MENU</a>
-        <a href="#about">ABOUT</a>
-      </nav>
-
-      <div class="nav-actions">
-        <span id="customerLoginStatus" class="login-status">Guest</span>
-        <button class="cart-top" type="button" onclick="scrollToCart()">
-          Cart <span id="cartCount">0</span>
-        </button>
-        <button class="nav-more-btn" type="button" onclick="toggleNavMenu()" aria-label="Open menu">☰</button>
-      </div>
-
-      <div class="nav-more-menu" id="navMoreMenu">
-        <a href="#home" onclick="closeNavMenu()">Home</a>
-        <a href="#menu" onclick="closeNavMenu()">Menu</a>
-        <a href="#about" onclick="closeNavMenu()">About</a>
-        <div class="mobile-menu-divider"></div>
-        <a href="javascript:void(0)" onclick="openCustomerAuth(); closeNavMenu();" id="mobileAuthButton">Login / Create Account</a>
-        <a href="javascript:void(0)" onclick="logoutCustomer(); closeNavMenu();" id="mobileLogoutButton" style="display:none;">🚪 Logout</a>
-      </div>
-    </header>
-
-    <main class="page-shell">
-      <section class="hero" id="home">
-        <div class="hero-copy">
-          <h1>Delicious Food Is<br />Waiting For You</h1>
-          <p>
-            Our team of registered nurses and skilled healthcare professionals provide in-home nursing.
-          </p>
-          <div class="hero-actions">
-            <button class="glass-btn primary" type="button" onclick="scrollToMenu()">Food Menu</button>
-            <button class="glass-btn secondary" type="button" onclick="scrollToCart()">Book a Table</button>
-          </div>
+    <div class="reference-shell">
+      <header class="page-header">
+        <div class="brand" aria-label="Gadly home">
+          <div class="brand-mark">G</div>
+          <span>Gadly</span>
         </div>
 
-        <div class="hero-visual">
-          <div class="hero-bowl-wrap">
-            <div class="bowl-ring"></div>
-            <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=80" alt="Food bowl" />
-          </div>
-        </div>
-      </section>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="#">Home</a>
+          <a href="#">Menus</a>
+          <a href="#">Services</a>
+          <a href="#">About</a>
+          <a href="#">Contact</a>
+        </nav>
 
-      <section class="top-list-section" id="menu">
-        <div class="section-title-wrap">
-          <h2>Top List</h2>
-          <span>Our mainstay menu</span>
-        </div>
+        <button class="header-button" type="button">Booking</button>
+      </header>
 
-        <div class="top-list-grid">
-          <article class="food-card">
-            <div class="food-image food-one">
-              <img src="https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=900&q=80" alt="Noodles three" />
-            </div>
-            <div class="food-card-body">
-              <div class="rating-badge">★ 8.1</div>
-              <h3>Noodles three</h3>
-              <p>White plate with dried shrimps</p>
-              <div class="card-row">
-                <strong>$12</strong>
-                <button type="button">+</button>
-              </div>
-            </div>
-          </article>
+      <main class="page-body">
+        <section class="hero-section">
+          <div class="hero-copy">
+            <p class="eyebrow">Home Chef Super</p>
+            <h1>Best Catering <span>Website</span></h1>
 
-          <article class="food-card featured-card">
-            <div class="food-image food-two">
-              <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=900&q=80" alt="Noodles one" />
-            </div>
-            <div class="food-card-body">
-              <div class="rating-badge">★ 9.2</div>
-              <h3>Noodles one</h3>
-              <p>Noodles spicy boil with seafood and pork in hot pot</p>
-              <div class="card-row">
-                <strong>$20</strong>
-                <button type="button">+</button>
-              </div>
-            </div>
-          </article>
+            <p class="lead">
+              Healthy, fresh, and beautifully prepared food for home gatherings,
+              office events, and special celebrations.
+            </p>
 
-          <article class="food-card">
-            <div class="food-image food-three">
-              <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80" alt="Noodles two" />
-            </div>
-            <div class="food-card-body">
-              <div class="rating-badge">★ 8.5</div>
-              <h3>Noodles two</h3>
-              <p>Noodles prawn spicy soup</p>
-              <div class="card-row">
-                <strong>$16</strong>
-                <button type="button">+</button>
-              </div>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="feature-showcase" id="about">
-        <div class="feature-image-wrap">
-          <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?auto=format&fit=crop&w=1200&q=80" alt="French fries" />
-        </div>
-
-        <div class="feature-copy">
-          <h2>Best Potatoes For<br />French Fries</h2>
-          <p>
-            Russet potatoes are ideal. Since they’re dense, they don’t contain as much water, which allows them to get extra crispy.
-          </p>
-        </div>
-      </section>
-
-      <section class="services-section">
-        <h2>Our services</h2>
-        <div class="services-row">
-          <div class="service-item"><span>🧺</span><p>Online booking</p></div>
-          <div class="service-item"><span>🥘</span><p>Catering service</p></div>
-          <div class="service-item"><span>👥</span><p>Membership</p></div>
-          <div class="service-item"><span>🚚</span><p>Delivery service</p></div>
-        </div>
-      </section>
-
-      <section class="customer-section">
-        <div class="customer-card">
-          <div>
-            <span class="section-mini">ORDERING AS</span>
-            <h2>Customer</h2>
-            <div class="customer-auth-box">
-              <div class="auth-tabs">
-                <button type="button" id="createAccountTab" class="auth-tab active" onclick="showCreateAccount()">Create Account</button>
-                <button type="button" id="loginTab" class="auth-tab" onclick="showCustomerLogin()">Login</button>
-              </div>
-
-              <div id="createAccountBox" class="auth-form">
-                <div class="auth-heading">Create your THALASSERY account</div>
-                <p class="auth-subheading">Create your account with phone verification.</p>
-                <input id="customerName" type="text" placeholder="Your full name" autocomplete="name" />
-                <input id="customerPhone" type="tel" placeholder="Phone number" autocomplete="tel" />
-                <input id="customerPassword" type="password" placeholder="Create password (6+ characters)" autocomplete="new-password" />
-                <input id="customerConfirmPassword" type="password" placeholder="Confirm password" autocomplete="new-password" />
-                <button class="green-btn auth-main-btn" type="button" onclick="requestCustomerOTP()">Get OTP</button>
-              </div>
-
-              <div id="loginBox" class="auth-form" style="display:none;">
-                <div class="auth-heading">Welcome back</div>
-                <p class="auth-subheading">Login using your phone number or account name.</p>
-                <input id="loginIdentifier" type="text" placeholder="Phone number or name" autocomplete="username" />
-                <input id="loginPassword" type="password" placeholder="Password" autocomplete="current-password" />
-                <button class="green-btn auth-main-btn" type="button" onclick="loginCustomerWithPassword()">Login</button>
-              </div>
-
-              <div id="otpBox" class="otp-box" style="display:none;">
-                <div class="otp-title">🔐 Verify your phone</div>
-                <p class="otp-subtitle">Enter the 6-digit OTP shown in the server terminal to verify your phone.</p>
-                <input id="customerOTP" type="text" inputmode="numeric" maxlength="6" placeholder="Enter 6-digit OTP" autocomplete="one-time-code" />
-                <button class="green-btn auth-main-btn" type="button" onclick="verifyCustomerOTP()">Verify &amp; Create Account</button>
-                <button class="otp-resend" type="button" onclick="resendCustomerOTP()">Resend OTP</button>
-              </div>
+            <div class="cta-row">
+              <button class="primary-btn" type="button">Get a Quote</button>
+              <button class="secondary-btn" type="button">Explore More</button>
             </div>
           </div>
-        </div>
-      </section>
 
-      <section class="cart-section" id="cart">
-        <div class="cart-card">
-          <div class="cart-header">
-            <div>
-              <span>YOUR ORDER</span>
-              <h2>Shopping Cart</h2>
-            </div>
-            <div class="cart-total-top" id="cartTotal">AED 0.00</div>
-          </div>
-
-          <div id="cartItems" class="cart-items">
-            <div class="empty-cart">Your cart is empty</div>
-          </div>
-
-          <div class="cart-bottom">
-            <div>
-              <small>TOTAL</small>
-              <strong id="cartTotalBottom">AED 0.00</strong>
-            </div>
-
-            <div class="delivery-user-info">
-              <div class="delivery-field">
-                <label>Building / House Number</label>
-                <input id="buildingNumber" type="text" placeholder="e.g. Villa 12 / Flat 304" />
-              </div>
-              <div class="delivery-field">
-                <label>Building Name</label>
-                <input id="buildingName" type="text" placeholder="Building / Villa name" />
-              </div>
-            </div>
-
-            <div class="delivery-field">
-              <label>Street / Area</label>
-              <input id="streetArea" type="text" placeholder="Street, area or landmark" />
-            </div>
-
-            <div class="delivery-map-box">
-              <div class="delivery-map-title">
-                <span>📍 Delivery Location</span>
-                <small>Tap the map to select your exact location</small>
-              </div>
-              <div id="deliveryMap" class="delivery-map"></div>
-              <div class="map-actions">
-                <button type="button" class="map-location-btn" onclick="openGoogleMapLocation()">📍 Open Google Maps</button>
-                <button type="button" class="current-location-btn" onclick="useCurrentLocation()">🎯 Use My Current Location</button>
-              </div>
-              <div id="selectedLocation" class="selected-location">📍 Tap the map or use current location</div>
-              <input id="mapLatitude" type="hidden" />
-              <input id="mapLongitude" type="hidden" />
-            </div>
-
-            <div class="delivery-field">
-              <label>Delivery Note <span>(Optional)</span></label>
-              <textarea id="deliveryNote" rows="2" placeholder="Example: Call me when you reach the building"></textarea>
-            </div>
-
-            <input id="deliveryAddress" type="hidden" />
-            <div class="order-time-note">⏰ Order time will be recorded automatically</div>
-
-            <div class="payment-buttons">
-              <button class="pay-btn" onclick="placeOrder('pay')">💵 Pay Now</button>
-              <button class="credit-btn" onclick="placeOrder('credit')">💳 Add to Credit</button>
+          <div class="hero-visual" aria-label="Food platter illustration">
+            <div class="orb orb-one"></div>
+            <div class="orb orb-two"></div>
+            <div class="plate-wrap">
+              <div class="plate-shadow"></div>
+              <img
+                src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=80"
+                alt="Fresh food platter"
+              />
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section class="orders-section" id="orders">
-        <div class="section-heading">
-          <span>YOUR HISTORY</span>
-          <h2>My Orders</h2>
-        </div>
-        <div id="ordersList">
-          <div class="empty-orders">Login as customer to see your orders.</div>
-        </div>
-      </section>
-    </main>
+        <section class="feature-section" aria-label="Features">
+          <div class="feature-card">
+            <div class="feature-icon green">✦</div>
+            <h3>While Due with</h3>
+            <p>Thoughtful catering for personal events and daily meal plans.</p>
+          </div>
 
-    <footer>
-      <div class="footer-logo">THALASSERY</div>
-      <p>Authentic Kerala Food</p>
-      <div class="footer-line"></div>
-      <small>© 2026 THALASSERY. All rights reserved.</small>
-    </footer>
+          <div class="feature-card">
+            <div class="feature-icon green">◎</div>
+            <h3>Fire Runner</h3>
+            <p>Fresh ingredients, rich textures, and lively flavor in every dish.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon green">◫</div>
+            <h3>Marblecous Wild</h3>
+            <p>Balanced menu planning for cozy dinners, events, and family meals.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon green">⌂</div>
+            <h3>Keep Try</h3>
+            <p>Consistent quality and chef-made taste that people remember.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon green">✤</div>
+            <h3>Whisk Now Pilot</h3>
+            <p>Serving refined menus for guests who want a premium touch.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon green">◌</div>
+            <h3>Amary Stay</h3>
+            <p>Elegant presentation blended with comforting, homemade feel.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon green">◍</div>
+            <h3>Fuel Already</h3>
+            <p>Healthy fresh bowls, bites, and platters for all kinds of events.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon green">✧</div>
+            <h3>Forcions</h3>
+            <p>Curated with care, made to impress at every table and occasion.</p>
+          </div>
+        </section>
+
+        <section class="feedback-section">
+          <h2>Taly Feedback</h2>
+
+          <div class="feedback-grid">
+            <article class="feedback-card">
+              <img
+                src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80"
+                alt="Healthy plated food"
+              />
+              <h3>Highlign Pisae</h3>
+              <p>Fresh ingredients and beautifully balanced flavors for our family gathering.</p>
+              <div class="review-footer">
+                <span class="stars">★ ★ ★ ★ ★</span>
+              </div>
+            </article>
+
+            <article class="feedback-card">
+              <img
+                src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=900&q=80"
+                alt="Burger and side plate"
+              />
+              <h3>While Ivihe to can lies</h3>
+              <p>Every plate felt special, warm, and polished. It matched our occasion wonderfully.</p>
+              <div class="review-footer">
+                <span class="stars">★ ★ ★ ★ ★</span>
+              </div>
+            </article>
+
+            <article class="feedback-card">
+              <img
+                src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80"
+                alt="Catering meal spread"
+              />
+              <h3>Dergam ftaets</h3>
+              <p>Our guests kept complimenting the presentation and the chef-inspired flavors.</p>
+              <div class="review-footer">
+                <span class="stars">★ ★ ★ ★ ★</span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="story-section">
+          <div class="story-copy">
+            <div class="mini-tag">More about us</div>
+            <h2>Fivius will affigen on parti-step lioc.</h2>
+            <p>
+              From curated family menus to elegant event spreads, we create dining
+              experiences that feel effortless, healthy, and memorable.
+            </p>
+            <button class="primary-btn small" type="button">Learn More</button>
+          </div>
+
+          <div class="story-visual">
+            <img
+              src="https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=1200&q=80"
+              alt="Prepared sandwich and salad"
+            />
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="footer-inner">
+          <div class="footer-links">
+            <span>☎ 202-000-000</span>
+            <span>✉ hello@gadly.com</span>
+          </div>
+          <div class="footer-socials" aria-label="Social links">
+            <span>f</span>
+            <span>in</span>
+            <span>◎</span>
+            <span>◌</span>
+          </div>
+        </div>
+      </footer>
+    </div>
 
     <div id="message"></div>
-
     <script src="/script.js"></script>
   </body>
 </html>
